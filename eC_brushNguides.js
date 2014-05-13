@@ -12,7 +12,7 @@ function activateBrush() { // Creates the brush, appends it, and defines its beh
 	.x(d3.scale.identity().domain([(lPad + conWidth + gap), (lPad + conWidth + gap + mapWidth)]))
 	.y(d3.scale.identity().domain([(tPad + conHeight + gap), (tPad + conHeight + gap + mapHeight)]))
 	.on("brushend", brushed)
- 
+
     svg.append("svg") // Appends the svg to include the brush
 	.attr("class", "brush")
 	.call(brush)
@@ -36,13 +36,13 @@ function activateBrush() { // Creates the brush, appends it, and defines its beh
 	clearContour();
 	drawContour(xD, yD);
     } // end of brushed
-    
+
 } // end of activateBrush
 
 var clearBrush = function() {
     d3.selectAll(".brush").remove();
     xD = [0, 1]; // reset global variables
-    yD = [0, 1]; 
+    yD = [0, 1];
     activateBrush();
 }
 
@@ -71,7 +71,7 @@ var activateGuides = function() {
     // AND the slicing process which depends on the cursor position
 
     // IMPORTANT: xD & yD are global variables
-    
+
     // First, everything related to the x slice
 
     var getXsliceLimits = function() {
@@ -85,7 +85,7 @@ var activateGuides = function() {
 
 	// The next steps find the indices corresponding to xD
 	var left = Math.round(xD[0] * nc + 1); // left value of desired plotting window
-	var right = Math.round(xD[1] * nc); // right value      
+	var right = Math.round(xD[1] * nc); // right value
 	var lIndex = xbase.indexOf(left);
 	var rIndex = xbase.indexOf(right);
 
@@ -123,7 +123,7 @@ var activateGuides = function() {
 
 	var nRow = arraySize(M)[0];
 	// IMPORTANT: reference point for brushing extent is lower left corner!
-	// 
+	//
 	var yU = yD[1] * nRow; // Get upper row index
 	var yL = yD[0] * nRow; // Get lower row index
 	var yInd = yL + ((mY) * (yU - yL)); // get cursor position
@@ -132,11 +132,11 @@ var activateGuides = function() {
 	// and the fact that R put the first row at the bottom!
 	if (yInd < 0) {yInd = 0};
 	if (yInd > nRow - 1) {yInd = nRow - 1};
-    	document.Show.mouseRow.value = yInd; 
+    	document.Show.mouseRow.value = yInd;
 	return(yInd);
     } // end of getRowIndex
 
-    var drawXslice = function(row) { 
+    var drawXslice = function(row) {
 
 	// WARNING: the matrix data has the columns in the correct order
 	// However, row 1 of the M matrix is at the bottom of the display
@@ -159,7 +159,15 @@ var activateGuides = function() {
 	    .domain(d3.extent(xy, function(d) {return d.x;})) //use just the x part
 	    .range([lPad, xslWidth + lPad])
 	var yscl = d3.scale.linear()
-	    .domain(d3.extent(xy, function(d) {return d.y;})) // use just the y part
+        // Next line scales so that slice area is filled
+	    // .domain(d3.extent(xy, function(d) {return d.y;})) // use just the y part
+        // Absolute scaling
+        // Keep in mind M has been scaled to 0...1 for plotting
+        // Get min/max, then scale to 0...1, then multiply by
+        // viewer requested scale factor, then scale to viewport
+        // console.log("max of M is:", d3.max(d3.max(M)))
+        // .domain(0, d3.max(d3.max(M))) // absolute scaling * ???
+        .domain([d3.min(d3.min(M)), d3.max(d3.max(M))]) // absolute scaling * ???
 	    .range([xslHeight + offset, offset + 5])
 	var slice = d3.svg.line()
 	    .x(function(d) { return xscl(d.x);}) // apply the x scale to the x data
@@ -184,7 +192,7 @@ var activateGuides = function() {
 	var nr = arraySize(M)[0]; // no. of rows in data set
 	var ybase = d3.range(1, nr + 1); // array of row numbers 1:nr
 	// The next steps find the indices corresponding to yD
-	var bottom = Math.round(yD[0] * nr + 1); // bottom value      
+	var bottom = Math.round(yD[0] * nr + 1); // bottom value
 	var top = Math.round(yD[1] * nr); // top value of desired plotting window
 	var bIndex = ybase.indexOf(bottom);
 	var tIndex = ybase.indexOf(top);
@@ -226,11 +234,11 @@ var activateGuides = function() {
 	xInd = xInd - 1;
 	if (xInd < 0) {xInd = 0};
 	if (xInd > nCol - 1) {xInd = nCol - 1};
-	document.Show.mouseCol.value = xInd; 
+	document.Show.mouseCol.value = xInd;
 	return(xInd);
     } // end of getColIndex
 
-    var drawYslice = function(col) { 
+    var drawYslice = function(col) {
 
 	// WARNING: the matrix data has the columns in the correct order
 	// However, row 1 of the M matrix is at the bottom of the display
@@ -248,7 +256,7 @@ var activateGuides = function() {
 	var xdata = getYsliceXvalues(col);
 	var ydata = getYsliceYvalues();
 	// Because of how the x data is created, we need to reverse it before
-	// 
+	//
 	var xy = []; // start empty, add each element one at a time
 	for(var i = 0; i < ydata.length; i++ ) {
 	    xy.push({x: xdata[i], y: ydata[i]});
@@ -286,7 +294,7 @@ var activateGuides = function() {
     	mX = mX/conWidth // as fraction
     	mY = 1 - (mY/conHeight)
     	followMouse(mX, mY);
-    	document.Show.mouseX.value = mX; 
+    	document.Show.mouseX.value = mX;
     	document.Show.mouseY.value = mY;
     	drawXslice(getRowIndex(M, mY));
 	drawYslice(getColIndex(M, mX));
@@ -327,6 +335,3 @@ var activateGuides = function() {
     getMouseXY(xD, yD); // This starts it all off
 
 } // end of activateGuides
-
-
-
