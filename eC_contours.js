@@ -1,13 +1,13 @@
 
 // exCon Kristina Mulry & Bryan Hanson, DePauw University, February 2014
 
-// Note: our map and contour areas are frequently referred to generically as context and focus
-// regions in the d3 world, sometimes as master and slave too.
+// Note: our map and contour areas are frequently referred to
+// generically as context and focus regions in the d3 world
 
 // xD & yD are global variables
 
 var drawContour = function(xD, yD) { // draw the contour map
-    var xContour = d3.scale.linear() // x limits for contour map 
+    var xContour = d3.scale.linear() // x limits for contour map
 	.domain(xD)
 	.range([0, conWidth]);
     var yContour = d3.scale.linear() // y limits for contour map
@@ -25,7 +25,7 @@ var drawContour = function(xD, yD) { // draw the contour map
 	       "id": "CON"})
 	.selectAll("path")
 	.data(CL.map(function(d) {
-            return d3.range(d.x.length).map(function(i) {
+        return d3.range(d.x.length).map(function(i) {
 		return {x: d.x[i], y: d.y[i]};});}))
 	.enter().append("svg:path")
 	.attr("d", lineCon)
@@ -48,7 +48,8 @@ var drawXaxis = function(xScale) {
     // the math portion below must be in parens
     // the math is evaluated and '+' concatenates the strings
 	.attr("transform", "translate(0," + (tPad + conHeight + 0.1*gap) + ")")
-	.attr("transform", "translate(" + lPad + "," + (tPad + conHeight + 0.1*gap) + ")")
+	.attr("transform", "translate(" + lPad + "," +
+        (tPad + conHeight + 0.1*gap) + ")")
 	.call(xAxis);
 }
 
@@ -62,7 +63,8 @@ var drawYaxis = function(yScale) {
 	.attr("id", "Y_axis")
 	.attr("class", "axis")
 	.attr("transform", "translate(0," + (tPad + conHeight + 0.1*gap) + ")")
-	.attr("transform", "translate(" + (lPad + conWidth + 0.1*gap) + "," + (tPad) + ")")
+	.attr("transform", "translate(" + (lPad + conWidth + 0.1*gap) + "," +
+        (tPad) + ")")
 	.call(yAxis);
 }
 
@@ -87,7 +89,7 @@ var drawMap = function() { // draw the navigation map in the map space
 	       "class": "map"})
 	.selectAll("path")
 	.data(CL.map(function(d) {
-            return d3.range(d.x.length).map(function(i) {
+        return d3.range(d.x.length).map(function(i) {
 		return {x: d.x[i], y: d.y[i]};});}))
 	.enter().append("svg:path")
 	.attr("d", lineMap)

@@ -9,9 +9,12 @@ function activateBrush() {
 
     // IMPORTANT: xD & yD are global variables
 
-    var brush = d3.svg.brush() // Defines the brush, and calls the relevant functions
-	.x(d3.scale.identity().domain([(lPad + conWidth + gap), (lPad + conWidth + gap + mapWidth)]))
-	.y(d3.scale.identity().domain([(tPad + conHeight + gap), (tPad + conHeight + gap + mapHeight)]))
+    var brush = d3.svg.brush()
+    // Defines the brush, and calls the relevant functions
+	.x(d3.scale.identity().domain([(lPad + conWidth + gap),
+        (lPad + conWidth + gap + mapWidth)]))
+	.y(d3.scale.identity().domain([(tPad + conHeight + gap),
+        (tPad + conHeight + gap + mapHeight)]))
 	.on("brushend", brushed)
 
     svg.append("svg") // Appends the svg to include the brush
@@ -60,7 +63,8 @@ var activateGuides = function() {
 
     // IMPORTANT: xD, yD, xF, yF, xM, yM are global variables
 
-    var getMouseXY = function() { // get the mouse coordinates & report in terms of [0...1] in the contour area
+    var getMouseXY = function() {
+    // get the mouse coordinates & report in terms of [0...1]
     	var mouse = d3.mouse(document.getElementById("CON"));
     	mX = mouse[0]; // in pixels
     	mY = mouse[1];
@@ -79,33 +83,35 @@ var activateGuides = function() {
 
     var followMouse = function(mX, mY) { // This draws the guides, nothing else
 
-	var xPos = (mX * conWidth) + lPad // mX now in pixels
-	var yPos = tPad + conHeight - (mY * conHeight) // mY now in pixels
+    	var xPos = (mX * conWidth) + lPad // mX now in pixels
+    	var yPos = tPad + conHeight - (mY * conHeight) // mY now in pixels
 
-	var vertU = {x: xPos, y: tPad } // x, y at the top of window
-	var vertL = {x: xPos, y: tPad + conHeight } // x, y at the bottom of window
-	var vEnds = [vertU, vertL];
+    	var vertU = {x: xPos, y: tPad } // x, y at the top of window
+        // x, y at the bottom of window:
+    	var vertL = {x: xPos, y: tPad + conHeight }
+    	var vEnds = [vertU, vertL];
 
-	var horzU = {x: lPad, y: yPos } // x, y at the left side of window
-	var horzL = {x: lPad + conWidth, y: yPos } // x, y at the ride side of window
-	var hEnds = [horzU, horzL];
+    	var horzU = {x: lPad, y: yPos } // x, y at the left side of window
+        // x, y at the right side of window:
+    	var horzL = {x: lPad + conWidth, y: yPos }
+    	var hEnds = [horzU, horzL];
 
-	d3.selectAll(".cursorGuide") // remove previous lines
-	    .remove();
+    	d3.selectAll(".cursorGuide") // remove previous lines
+    	    .remove();
 
-	var line = d3.svg.line()
-	    .x(function(d) { return d.x;})
-	    .y(function(d) { return d.y;})
+    	var line = d3.svg.line()
+    	    .x(function(d) { return d.x;})
+    	    .y(function(d) { return d.y;})
 
-	svg.append("path")
-    	    .attr("class", "line")
-            .attr("class", "cursorGuide")
-    	    .attr("d", line(hEnds))
+    	svg.append("path")
+        	    .attr("class", "line")
+                .attr("class", "cursorGuide")
+        	    .attr("d", line(hEnds))
 
-	svg.append("path")
-    	    .attr("class", "line")
-            .attr("class", "cursorGuide")
-    	    .attr("d", line(vEnds))
+    	svg.append("path")
+        	    .attr("class", "line")
+                .attr("class", "cursorGuide")
+        	    .attr("d", line(vEnds))
 
     } // end of followMouse
 

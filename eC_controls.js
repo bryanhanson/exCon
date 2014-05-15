@@ -1,7 +1,9 @@
 
 // exCon Kristina Mulry & Bryan Hanson, DePauw University, February 2014
 
-var drawOutlines = function() { // outline the areas in which we will draw things
+var drawOutlines = function() {
+    // Outline the areas in which we will draw things
+
     // svg.append('rect') // outline main window (for troubleshooting, probably not in final version)
     // 	.attr({x: 0, y: 0,
     // 	       width:(winWidth),
@@ -73,7 +75,8 @@ var drawControls = function(){
 	minusYx = xBut + 0.5*gap + 2*butInc,
 	minusYy = yBut;
 
-    // Now draw, label and activate all 7 buttons in groups (coordinates with CSS that way)
+    // Now draw, label and activate all 7 buttons in groups
+    // (coordinates with CSS that way)
 
     var g1 = svg.append("g")
 //        .attr({id: "resetButton"})
