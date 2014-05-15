@@ -30,10 +30,23 @@ var gap = 0.075*winHeight, // gap for displaying axis
 // Define the master global variable for drawing purposes.  Everything gets appended to this object
 
 var svg = d3.select('#main') // The full window is appended to #main and named 'svg'.
-                             // This simply defines a variable/window into which we can draw, nothing is drawn. 
+                             // This simply defines a variable/window into which we can draw, nothing is drawn.
     .append('svg').style('width', winWidth).style('height',winHeight);
 
 // Define xD & yD: x domain and y domain. These are needed and modified by several functions
 
 var xD = [0, 1],
     yD = [0, 1];
+
+// Define xF and yF; x scale factor.  These are the amplification factors
+// which control the vertical scales of the slices, and are set
+// by the controls
+
+var xF = 1.0,
+    yF = 1.0;
+
+// Define xM and yM, the position of the mouse w/i the contour area
+// Need to provide initial values here
+
+var xM = 0.5,
+    yM = 0.5;

@@ -194,6 +194,8 @@ var resetAll = function() {
 }
 
 var resetXslice = function() {
+    yF = 1.0
+    drawXslice(getRowIndex(M, mY))
 }
 
 var resetYslice = function() {
@@ -210,5 +212,3 @@ var increaseYslice = function() {
 
 var decreaseYslice = function() {
 }
-
-
