@@ -82,45 +82,45 @@ var drawControls = function(){
 //        .attr({id: "resetButton"})
 
     g1.append('circle') // master reset button
-	.attr({cx: Rx, cy: Ry, r: butSize})
+	    .attr({cx: Rx, cy: Ry, r: butSize})
         .attr({id: "resetButton"})
         .attr({onclick: "resetAll()" })
 //        .text('R')
     g1.append('text') // master reset button
-	.attr({x: Rx, y: Ry + 7})
+	    .attr({x: Rx, y: Ry + 7})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  20})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
-	.attr({onclick: "resetAll()" })
+	    .attr({"pointer-events": "none"})
+	    .attr({onclick: "resetAll()" })
         .text('R')
 
     g1.append('circle') // x slice reset button
-	.attr({cx: xRx, cy: xRy, r: butSize})
+	    .attr({cx: xRx, cy: xRy, r: butSize})
         .attr({id: "resetButton"})
         .attr({onclick: "resetXslice()" })
     g1.append('text') // x slice reset button
-	.attr({x: xRx, y: xRy + 7})
+	    .attr({x: xRx, y: xRy + 7})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  20})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
-         .attr({onclick: "resetXslice()" })
+	    .attr({"pointer-events": "none"})
+        .attr({onclick: "resetXslice()" })
        .text('R')
 
    g1.append('circle') // y slice reset button
-	.attr({cx: yRx, cy: yRy, r: butSize})
+	    .attr({cx: yRx, cy: yRy, r: butSize})
         .attr({id: "resetButton"})
         .attr({onclick: "resetYSlice()" })
    g1.append('text') // y slice reset button
-	.attr({x: yRx, y: yRy + 7})
+	    .attr({x: yRx, y: yRy + 7})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  20})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
+	    .attr({"pointer-events": "none"})
         .attr({onclick: "resetYSlice()" })
         .text('R')
 
@@ -128,11 +128,11 @@ var drawControls = function(){
 //        .attr({id: "incButton"})
 
     g2.append('circle') // x slice increase button
-	.attr({cx: plusXx, cy: plusXy, r: butSize})
+	    .attr({cx: plusXx, cy: plusXy, r: butSize})
         .attr({id: "incButton"})
         .attr({onclick: "increaseXslice()" })
     g2.append('text') // x slice increase button
-	.attr({x: plusXx, y: plusXy + 6})
+	    .attr({x: plusXx, y: plusXy + 6})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  20})
@@ -142,16 +142,16 @@ var drawControls = function(){
         .text('+')
 
     g2.append('circle') // y slice increase button
-	.attr({cx: plusYx, cy: plusYy, r: butSize})
+	    .attr({cx: plusYx, cy: plusYy, r: butSize})
         .attr({id: "incButton"})
         .attr({onclick: "increaseYslice()" })
     g2.append('text') // y slice increase button
-	.attr({x: plusYx, y: plusYy + 6})
+	    .attr({x: plusYx, y: plusYy + 6})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  20})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
+	    .attr({"pointer-events": "none"})
         .attr({onclick: "increaseYslice()" })
         .text('+')
 
@@ -159,30 +159,30 @@ var drawControls = function(){
 //        .attr({id: "decButton"})
 
     g3.append('circle') // x slice decrease button
-	.attr({cx: minusXx, cy: minusXy, r: butSize, text: '-'})
+	    .attr({cx: minusXx, cy: minusXy, r: butSize, text: '-'})
         .attr({id: "decButton"})
         .attr({onclick: "decreaseXslice()" })
     g3.append('text') // x slice decrease button
-	.attr({x: minusXx, y: minusXy + 9})
+	    .attr({x: minusXx, y: minusXy + 9})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  30})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
+	    .attr({"pointer-events": "none"})
         .attr({onclick: "decreaseXslice()" })
         .text('-')
 
     g3.append('circle') // y slice decrease button
-	.attr({cx: minusYx, cy: plusYy, r: butSize})
+	    .attr({cx: minusYx, cy: plusYy, r: butSize})
         .attr({id: "decButton"})
         .attr({onclick: "decreaseYslice()" })
     g3.append('text') // y slice decrease button
-	.attr({x: minusYx, y: plusYy + 9})
+	    .attr({x: minusYx, y: plusYy + 9})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  30})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
+	    .attr({"pointer-events": "none"})
         .attr({onclick: "decreaseYslice()" })
         .text('-')
 
@@ -202,16 +202,22 @@ var resetXslice = function() {
 }
 
 var resetYslice = function() {
+    xF = 1.0
+    drawYslice(getColIndex(M, mX))
 }
 
 var increaseXslice = function() {
+    yF = yF / 2
 }
 
 var decreaseXslice = function() {
+    yF = yF * 2
 }
 
 var increaseYslice = function() {
+    xF = xF / 2
 }
 
 var decreaseYslice = function() {
+    xF = xF * 2
 }

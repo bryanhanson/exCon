@@ -93,8 +93,6 @@ var drawXslice = function(row) {
 	d3.selectAll(".xslice")
 	    .remove();
 
-	var offset = tPad + conHeight + gap;
-
 	var xdata = getXsliceXvalues();
 	var ydata = getXsliceYvalues(row);
 	var xy = []; // start empty, add each element one at a time
@@ -104,25 +102,27 @@ var drawXslice = function(row) {
 
 	var xscl = d3.scale.linear()
 	    .domain(d3.extent(xy, function(d) {return d.x;})) //use just the x part
-	    .range([lPad, xslWidth + lPad])
+	    .range([0, xslWidth])
 
     var minM = d3.min(M, function(d) { return d3.min(d); });
     var maxM = d3.max(M, function(d) { return d3.max(d); });
 
 	var yscl = d3.scale.linear()
-        // Next line scales so that slice area is filled
-        // This is relative scaling (not desired, kept for reference)
-	    // .domain(d3.extent(xy, function(d) {return d.y;})) // use just the y part
-        // Absolute scaling
-        .domain([minM, maxM * yF])
-	    .range([xslHeight + offset, offset + 5])
+        .domain([minM, ((maxM - minM)*yF + minM)])
+	    .range([xslHeight-5, 5]) // keeps line from touching outline
+
 	var slice = d3.svg.line()
 	    .x(function(d) { return xscl(d.x);}) // apply the x scale to the x data
 	    .y(function(d) { return yscl(d.y);}) // apply the y scale to the y data
+
 	svg.append("path")
-	    .attr("class", "line")
-	    .attr("class", "xslice")
-	    .attr("d", slice(xy)) // use the return value of slice(xy) as 'd'
+		.attr("transform", "translate(" + lPad + ","
+			+ (tPad + conHeight + gap) + ")")
+		.attr({width: xslWidth,
+			   height: xslHeight,
+	           "class": "line",
+	           "class": "xslice",
+	           "d": slice(xy)}) // use the return value of slice(xy) as 'd'
 } // end of drawXslice
 
 
