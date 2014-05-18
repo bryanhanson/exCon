@@ -37,7 +37,11 @@ var svg = d3.select('#main')
 // The full window is appended to #main and named 'svg'.
 // This simply defines a variable/window into which we
 // can draw, nothing is drawn.
-    .append('svg').style('width', winWidth).style('height',winHeight);
+    .append('svg')
+    .attr("width", window.innerWidth)
+    .attr("height", window.innerHeight)
+    // .style('width', winWidth)
+    // .style('height',winHeight);
 
 // Define xD & yD: x domain and y domain.
 // These are needed and modified by several functions
