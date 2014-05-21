@@ -89,9 +89,15 @@ var drawXslice = function(row) {
 	// However, row 1 of the M matrix is at the bottom of the display
 	// and js counts from the top of the svg
 
-	// start by removing any existing xslice
+	// Start by removing any existing xslice and associated clipping elements.
 	d3.selectAll(".xslice")
 	    .remove();
+	d3.selectAll(".xViewport")
+		.remove();
+	d3.selectAll("#xClipBox")
+		.remove();
+	d3.selectAll("defs") // w/o this empty tags accumulate
+		.remove();
 
 	var xdata = getXsliceXvalues();
 	var ydata = getXsliceYvalues(row);
@@ -115,14 +121,24 @@ var drawXslice = function(row) {
 	    .x(function(d) { return xscl(d.x);}) // apply the x scale to the x data
 	    .y(function(d) { return yscl(d.y);}) // apply the y scale to the y data
 
-	svg.append("path")
+	var clip = svg.append("defs").append("clipPath")
+   	  .attr("id", "xClipBox")
+
+	clip.append("use").attr("xlink:href", "#xViewport");
+
+	var xSlice = svg.append("g")
+		.attr("clip-path", "url(#xClipBox)")
+		.attr("class", "xViewport") // needs a class to be able to clear
+
+	xSlice.append("path")
 		.attr("transform", "translate(" + lPad + ","
 			+ (tPad + conHeight + gap) + ")")
 		.attr({width: xslWidth,
-			   height: xslHeight,
-	           "class": "line",
-	           "class": "xslice",
-	           "d": slice(xy)}) // use the return value of slice(xy) as 'd'
+			height: xslHeight,
+			"class": "line",
+			"class": "xslice",
+			"d": slice(xy)}) // use the return value of slice(xy) as 'd'
+
 } // end of drawXslice
 
 

@@ -43,6 +43,11 @@ var svg = d3.select('#main')
     // .style('width', winWidth)
     // .style('height',winHeight);
 
+// var clip = svg.append("defs").append("clipPath")
+//      .attr("id", "xClipBox")
+//
+// clip.append("use").attr("xlink:href", "#xViewport");
+
 // Define xD & yD: x domain and y domain.
 // These are needed and modified by several functions
 

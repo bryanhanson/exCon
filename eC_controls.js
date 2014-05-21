@@ -32,6 +32,7 @@ var drawOutlines = function() {
 	       y: tPad + conHeight + gap,
 	       width: xslWidth,
 	       height: xslHeight,
+           id: "xViewport",
 	       stroke: 'black',
 	       'stroke-width': 1.5,
 	       fill:'white'});
@@ -43,6 +44,7 @@ var drawOutlines = function() {
 	       stroke: 'black',
 	       'stroke-width': 1.5,
 	       fill:'white'});
+
 } // end of drawOutlines
 
 var drawControls = function(){
