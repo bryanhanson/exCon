@@ -41,6 +41,7 @@ var drawOutlines = function() {
 	       y: tPad,
 	       width: yslWidth,
 	       height: yslHeight,
+           id: "yViewport",
 	       stroke: 'black',
 	       'stroke-width': 1.5,
 	       fill:'white'});
@@ -62,8 +63,8 @@ var drawControls = function(){
     var butInc = 0.25* yslWidth // spacing w/i the button set
     var butSize = 0.25*gap // radius of the button circle
 
-    var Rx = xBut, // master reset button
-	Ry = yBut,
+    var Rx = xBut + 10, // master reset button
+	Ry = yBut + 10,
 	xRx = xBut, // x slice controls
 	xRy = yBut + 0.5*gap + 3*butInc,
 	plusXx = xBut,
@@ -85,7 +86,8 @@ var drawControls = function(){
 
     g1.append('circle') // master reset button
 	    .attr({cx: Rx, cy: Ry, r: butSize})
-        .attr({id: "resetButton"})
+        .attr({class: "resetButton"})
+        .attr({fill: "#008B00"})
         .attr({onclick: "resetAll()" })
 //        .text('R')
     g1.append('text') // master reset button
@@ -100,7 +102,8 @@ var drawControls = function(){
 
     g1.append('circle') // x slice reset button
 	    .attr({cx: xRx, cy: xRy, r: butSize})
-        .attr({id: "resetButton"})
+        .attr({class: "resetButton"})
+        .attr({fill: "#008B00"})
         .attr({onclick: "resetXslice()" })
     g1.append('text') // x slice reset button
 	    .attr({x: xRx, y: xRy + 7})
@@ -110,20 +113,21 @@ var drawControls = function(){
         .attr({"text-anchor": "middle"})
 	    .attr({"pointer-events": "none"})
         .attr({onclick: "resetXslice()" })
-       .text('R')
+        .text('R')
 
-   g1.append('circle') // y slice reset button
+    g1.append('circle') // y slice reset button
 	    .attr({cx: yRx, cy: yRy, r: butSize})
-        .attr({id: "resetButton"})
-        .attr({onclick: "resetYSlice()" })
-   g1.append('text') // y slice reset button
+        .attr({class: "resetButton"})
+        .attr({fill: "#008B00"})
+        .attr({onclick: "resetYslice()" })
+    g1.append('text') // y slice reset button
 	    .attr({x: yRx, y: yRy + 7})
         .attr({"font-family": "sans-serif"})
         .attr({fill: "white"})
         .attr({"font-size":  20})
         .attr({"text-anchor": "middle"})
 	    .attr({"pointer-events": "none"})
-        .attr({onclick: "resetYSlice()" })
+        .attr({onclick: "resetYslice()" })
         .text('R')
 
     var g2 = svg.append("g")
@@ -131,7 +135,7 @@ var drawControls = function(){
 
     g2.append('circle') // x slice increase button
 	    .attr({cx: plusXx, cy: plusXy, r: butSize})
-        .attr({id: "incButton"})
+        .attr({class: "incButton"})
         .attr({onclick: "increaseXslice()" })
     g2.append('text') // x slice increase button
 	    .attr({x: plusXx, y: plusXy + 6})
@@ -139,13 +143,13 @@ var drawControls = function(){
         .attr({fill: "white"})
         .attr({"font-size":  20})
         .attr({"text-anchor": "middle"})
-	.attr({"pointer-events": "none"})
+	    .attr({"pointer-events": "none"})
         .attr({onclick: "increaseXslice()" })
         .text('+')
 
     g2.append('circle') // y slice increase button
 	    .attr({cx: plusYx, cy: plusYy, r: butSize})
-        .attr({id: "incButton"})
+        .attr({class: "incButton"})
         .attr({onclick: "increaseYslice()" })
     g2.append('text') // y slice increase button
 	    .attr({x: plusYx, y: plusYy + 6})
@@ -162,7 +166,7 @@ var drawControls = function(){
 
     g3.append('circle') // x slice decrease button
 	    .attr({cx: minusXx, cy: minusXy, r: butSize, text: '-'})
-        .attr({id: "decButton"})
+        .attr({class: "decButton"})
         .attr({onclick: "decreaseXslice()" })
     g3.append('text') // x slice decrease button
 	    .attr({x: minusXx, y: minusXy + 9})
@@ -176,7 +180,7 @@ var drawControls = function(){
 
     g3.append('circle') // y slice decrease button
 	    .attr({cx: minusYx, cy: plusYy, r: butSize})
-        .attr({id: "decButton"})
+        .attr({class: "decButton"})
         .attr({onclick: "decreaseYslice()" })
     g3.append('text') // y slice decrease button
 	    .attr({x: minusYx, y: plusYy + 9})
@@ -200,12 +204,38 @@ var resetAll = function() {
 
 var resetXslice = function() {
     yF = 1.0
-    drawXslice(getRowIndex(M, mY))
+
+    if (mY == 0 || mY == 1) {
+        clearXslice()
+    } else {
+        drawXslice(getRowIndex(M, mY))
+    }
+    //
+    // if (mX ==0 || mX == 1) {
+    //     clearYslice()
+    // } else {
+    //     drawYslice(getColIndex(M, mX))
+    // }
+    //
+    // drawXslice(getRowIndex(M, mY))
 }
 
 var resetYslice = function() {
     xF = 1.0
-    drawYslice(getColIndex(M, mX))
+
+// if (mY == 0 || mY == 1) {
+//     clearXslice()
+// } else {
+//     drawXslice(getRowIndex(M, mY))
+// }
+
+    if (mX ==0 || mX == 1) {
+        clearYslice()
+    } else {
+        drawYslice(getColIndex(M, mX))
+    }
+
+    // drawYslice(getColIndex(M, mX))
 }
 
 var increaseXslice = function() {

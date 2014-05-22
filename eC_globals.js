@@ -43,6 +43,16 @@ var svg = d3.select('#main')
     // .style('width', winWidth)
     // .style('height',winHeight);
 
+// var xClip = svg.append("defs").append("clipPath")
+//      .attr("id", "xClipBox")
+//
+// xClip.append("use").attr("xlink:href", "#xViewport");
+//
+// var yClip = svg.append("defs").append("clipPath")
+//     .attr("id", "yClipBox")
+//
+// yClip.append("use").attr("xlink:href", "#yViewport");
+
 // var clip = svg.append("defs").append("clipPath")
 //      .attr("id", "xClipBox")
 //

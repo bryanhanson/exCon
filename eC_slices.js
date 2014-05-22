@@ -82,6 +82,10 @@ var getRowIndex = function(M, mY) {
 	return(yInd);
 } // end of getRowIndex
 
+var clearXslice = function() {
+	d3.selectAll(".xslice")
+		.remove();
+}
 
 var drawXslice = function(row) {
 
@@ -96,8 +100,8 @@ var drawXslice = function(row) {
 		.remove();
 	d3.selectAll("#xClipBox")
 		.remove();
-	d3.selectAll("defs") // w/o this empty tags accumulate
-		.remove();
+	// d3.selectAll("defs") // w/o this empty tags accumulate
+	// 	.remove();
 
 	var xdata = getXsliceXvalues();
 	var ydata = getXsliceYvalues(row);
@@ -120,6 +124,8 @@ var drawXslice = function(row) {
 	var slice = d3.svg.line()
 	    .x(function(d) { return xscl(d.x);}) // apply the x scale to the x data
 	    .y(function(d) { return yscl(d.y);}) // apply the y scale to the y data
+
+	// This approach permits re-use of #xViewport (defined in eC_controls.js)
 
 	var clip = svg.append("defs").append("clipPath")
    	  .attr("id", "xClipBox")
@@ -201,22 +207,30 @@ var getColIndex = function(M, mX) { // Row index in the original matrix
 	return(xInd);
 } // end of getColIndex
 
+var clearYslice = function() {
+	d3.selectAll(".yslice")
+		.remove();
+}
+
 var drawYslice = function(col) {
 
 	// WARNING: the matrix data has the columns in the correct order
 	// However, row 1 of the M matrix is at the bottom of the display
 	// and js counts from the top of the svg
 
-	// See drawXslice for some additional comments
+	// See drawXslice for detailed comments
 
-	// start by removing any existing y slice
 	d3.selectAll(".yslice")
 	    .remove();
+	d3.selectAll(".yViewport")
+		.remove();
+	d3.selectAll("#yClipBox")
+		.remove();
+	// d3.selectAll("defs")
+	// 	.remove();
 
-	var offset = tPad;
-
-     // Important: on the y slice, the x values are the column slice,
-     // and the y values are the row numbers (since the plot is rotated 90)
+    // Important: on the y slice, the x values are the column slice,
+    // and the y values are the row numbers (since the plot is rotated 90)
 
 	var xdata = getYsliceXvalues(col);
 	var ydata = getYsliceYvalues();
@@ -230,19 +244,36 @@ var drawYslice = function(col) {
     var maxM = d3.max(M, function(d) { return d3.max(d); });
 
 	var xscl = d3.scale.linear()
-	    .domain([minM, maxM])
+	    .domain([minM, ((maxM - minM)*xF + minM)])
 		// range is set so the top of the peaks point toward the contour area
-	    .range([(lPad + conWidth + gap + yslWidth),
-			(lPad + conWidth + gap + 5)])
+	    .range([yslWidth-5, 5])
+
 	var yscl = d3.scale.linear()
 		.domain(d3.extent(xy, function(d) {return d.y;}))
-	    .range([yslHeight + offset, offset])
+	    .range([yslHeight + tPad, tPad])
 
 	var slice = d3.svg.line()
 	    .x(function(d) { return xscl(d.x);})
 	    .y(function(d) { return yscl(d.y);})
-	svg.append("path")
-	    .attr("class", "line")
-	    .attr("class", "yslice")
-	    .attr("d", slice(xy))
+
+	var clip = svg.append("defs").append("clipPath")
+		.attr("id", "yClipBox")
+
+	clip.append("use").attr("xlink:href", "#yViewport");
+
+	var ySlice = svg.append("g")
+		.attr("clip-path", "url(#yClipBox)")
+		.attr("class", "yViewport")
+
+	ySlice.append("path")
+		// .attr("transform", "translate(" + (lPad + conWidth + gap + yslWidth)
+		//  	+ "," + (tPad) + ")")
+.attr("transform", "translate(" + (lPad + conWidth + gap)
+	+ "," + (0) + ")")
+		.attr({width: yslWidth,
+			height: yslHeight,
+			"class": "line",
+			"class": "yslice",
+			"d": slice(xy)})
+
 } // end of drawYslice

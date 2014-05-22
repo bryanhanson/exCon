@@ -7,39 +7,40 @@
 /* items that don't begin with a special character are html reserved names */
 
 <style>
-
+/* The fill values for the reset buttons here seem to be ignored;
+they are actually hard-wired in eC_controls.js */
 /* button styles */
-#resetButton {
+.resetButton {
   cursor: pointer;
-  fill: #FF0000;
+  fill: #008B00;
 }
 
-#resetButton:hover {
+.resetButton:hover {
   cursor: pointer;
   fill: #7CFC00;
 }
 
-#incButton {
+.incButton {
   cursor: pointer;
   fill: #B22222;
 }
 
-#incButton:hover {
+.incButton:hover {
   cursor: pointer;
   fill: #FF0000;
 }
 
-#decButton {
+.decButton {
   cursor: pointer;
   fill: #000080;
 }
 
-#decButton:hover {
+.decButton:hover {
   cursor: pointer;
   fill: #0000FF;
 }
 
-/* class styles */
+/* other class styles */
 
 .contour {
     fill: none;
@@ -60,7 +61,7 @@
     stroke-width: 1.5;
 }
 
-.axis path, 
+.axis path,
 .axis line {
   fill: none;
   stroke: black;
@@ -70,7 +71,7 @@
 .axis text {
   font-family: sans-serif;
   font-size: 8 px;
-} 
+}
 
 .brush .extent {
   fill-opacity: .125;
@@ -97,7 +98,7 @@ div.inputData {
     font-family: Arial, Helvetica, sans-serif;
 }
 
- 
+
 /* div.BigSVG { /\* this is supposed to center the svg *\/ */
 /*   width: 95 % ; */
 /*   margin-left: auto ; */

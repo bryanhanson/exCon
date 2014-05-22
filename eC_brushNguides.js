@@ -75,10 +75,21 @@ var activateGuides = function() {
     	mX = mX/conWidth // as fraction
     	mY = 1 - (mY/conHeight)
     	followMouse(mX, mY);
-    	document.Show.mouseX.value = mX;
-    	document.Show.mouseY.value = mY;
-    	drawXslice(getRowIndex(M, mY));
-	    drawYslice(getColIndex(M, mX));
+    	// document.Show.mouseX.value = mX;
+    	// document.Show.mouseY.value = mY;
+
+        if (mY == 0 || mY == 1) {
+            clearXslice()
+        } else {
+    	    drawXslice(getRowIndex(M, mY))
+        }
+
+        if (mX ==0 || mX == 1) {
+            clearYslice()
+        } else {
+	        drawYslice(getColIndex(M, mX))
+        }
+
     } // end of getMouseXY
 
     var followMouse = function(mX, mY) { // This draws the guides, nothing else
