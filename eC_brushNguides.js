@@ -22,21 +22,21 @@ function activateBrush() {
 	.call(brush)
 
     function brushed() { // Handles the response to brushing
-	var extent = brush.extent()
+	var extent = brush.extent() // reports in pixels
 	var minX = extent[0][0]
 	var maxX = extent[1][0]
 	var minY = extent[0][1]
 	var maxY = extent[1][1]
-	var x0 = lPad + conWidth + gap
+	var x0 = lPad + conWidth + gap // dim of map region
 	var y0 = tPad + conHeight + gap
 	var x1 = x0 + mapWidth
 	var y1 = y0 + mapHeight
-	var xDminX = ((minX-x0)/(x1-x0))
+	var xDminX = ((minX-x0)/(x1-x0)) // as a frac of map region
 	var xDmaxX =  ((maxX-x0)/(x1-x0))
 	var yDminY = ((minY-y0)/(y1-y0))
 	var yDmaxY =  ((maxY-y0)/(y1-y0))
-	xD = [xDminX, xDmaxX] // update global value
-	yD = [(1-yDmaxY), (1-yDminY)] // update global value
+	xD = [xDminX*Dx[0], xDmaxX*Dx[1]] // update global values
+	yD = [(1-yDmaxY)*Dy[0], (1-yDminY)*Dy[1]]
 	clearContour();
 	drawContour(xD, yD);
     } // end of brushed
@@ -45,8 +45,8 @@ function activateBrush() {
 
 var clearBrush = function() {
     d3.selectAll(".brush").remove();
-    xD = [0, 1]; // reset global variables
-    yD = [0, 1];
+    xD = Dx; // reset global variables
+    yD = Dy;
     activateBrush();
 }
 

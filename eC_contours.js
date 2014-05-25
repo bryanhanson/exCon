@@ -56,8 +56,8 @@ var drawXaxis = function(xScale) {
 var drawYaxis = function(yScale) {
     d3.select("#Y_axis").remove();
     var yAxis = d3.svg.axis()
-        	.scale(yScale)
-        	.orient("right");
+        .scale(yScale)
+        .orient("right");
 
     svg.append("g")
     	.attr("id", "Y_axis")
@@ -75,10 +75,10 @@ var clearContour = function() {
 
 var drawMap = function() { // draw the navigation map in the map space
     var xMap = d3.scale.linear() // x limits for corner map
-    	.domain([0, 1])
+    	.domain(Dx)
     	.range([0, mapWidth]);
     var yMap = d3.scale.linear() // y limits for corner map
-    	.domain([0, 1])
+    	.domain(Dy)
     	.range([mapHeight, 0]);
     var lineMap = d3.svg.line()
     	.x(function(d) { return xMap(d.x); })

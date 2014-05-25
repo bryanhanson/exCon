@@ -43,26 +43,10 @@ var svg = d3.select('#main')
     // .style('width', winWidth)
     // .style('height',winHeight);
 
-// var xClip = svg.append("defs").append("clipPath")
-//      .attr("id", "xClipBox")
-//
-// xClip.append("use").attr("xlink:href", "#xViewport");
-//
-// var yClip = svg.append("defs").append("clipPath")
-//     .attr("id", "yClipBox")
-//
-// yClip.append("use").attr("xlink:href", "#yViewport");
+// Copy xD and yD as we'll need access to the original value
 
-// var clip = svg.append("defs").append("clipPath")
-//      .attr("id", "xClipBox")
-//
-// clip.append("use").attr("xlink:href", "#xViewport");
-
-// Define xD & yD: x domain and y domain.
-// These are needed and modified by several functions
-
-var xD = [0, 1],
-    yD = [0, 1];
+var Dx = xD,
+    Dy = yD;
 
 // Define xF and yF; x scale factor.  These are the amplification factors
 // which control the vertical scales of the slices, and are set

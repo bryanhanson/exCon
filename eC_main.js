@@ -12,7 +12,7 @@ drawMap(); // Appends an svg:path object (the contour lines)
 // and draws them in the map region.
 
 // On first run, draw the full domain in the contour area:
-drawContour([0,1],[0,1]); // Works as drawMap does, just in a different region.
+drawContour(xD,yD); // Works as drawMap does, just in a different region.
 
 // These next two control behaviors and depend on xD & yD
 activateBrush(); // Handles all the brush tasks

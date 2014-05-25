@@ -197,7 +197,7 @@ var drawControls = function(){
 var resetAll = function() {
     clearBrush();
     clearContour();
-    drawContour([0,1],[0,1]);
+    drawContour(Dx,Dy);
     resetXslice();
     resetYslice();
 }
