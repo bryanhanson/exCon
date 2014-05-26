@@ -23,15 +23,11 @@ var getXsliceLimits = function() {
 	// based on xD (the limits)
 	// These are column numbers
 
-	var nc = arraySize(M)[1]; // no. of columns in data set
-	var xbase = d3.range(1, nc + 1); // array of column numbers 1:nc
-
-	// The next steps find the indices corresponding to xD
-	var left = Math.round(xD[0] * nc + 1); // left edge/index of plotting window
-	var right = Math.round(xD[1] * nc); // right edge
+	var xbase = d3.range(Dx[0], Dx[1]+1); // array of column numbers 1:nc
+	var left = Math.round(xD[0]); // left edge/index of plotting window
+	var right = Math.round(xD[1]); // right edge
 	var lIndex = xbase.indexOf(left);
 	var rIndex = xbase.indexOf(right);
-
 	return [lIndex, rIndex];
 
 } // end of getXsliceLimits
@@ -56,7 +52,7 @@ var getXsliceYvalues = function(row) {
 
 	// This function creates the y values needed for the x slice
 	// See getXsliceLimits for logic & comments
-
+	// console.log("row is:", row)
 	var ybase = M[row]; // the y values in the row
 	var lIndex = getXsliceLimits()[0];
 	var rIndex = getXsliceLimits()[1];
@@ -65,21 +61,19 @@ var getXsliceYvalues = function(row) {
 } // end of getXsliceYvalues
 
 
-var getRowIndex = function(M, mY) {
+var getRowIndex = function(M, mY) { // do we need to specify the args?
 
 	var nRow = arraySize(M)[0];
 	// IMPORTANT: reference point for brushing extent is lower left corner!
-	//
-	var yU = yD[1] * nRow; // Get upper row index
-	var yL = yD[0] * nRow; // Get lower row index
-	var yInd = yL + ((mY) * (yU - yL)); // get cursor position
-	yInd =  Math.round(yInd);
-	yInd = yInd - 1; // accts for zero-indexing in js
-	// and the fact that R put the first row at the bottom!
-	if (yInd < 0) {yInd = 0};
-	if (yInd > nRow - 1) {yInd = nRow - 1};
-    	document.Show.mouseRow.value = yInd;
-	return(yInd);
+	var yInd = yD[0] + ((mY) * (yD[1] - yD[0]))
+	var yPick = yInd // This is the cursor position in native units
+	// above correctly reports in native yD units
+	// below reports by row of M
+	yInd = (yInd*nRow/(Dy[1]-Dy[0])) - Dy[0]
+	yInd =  Math.round(yInd)
+    document.Show.mouseRow.value = yInd;
+	document.Show.mouseVal.value = yPick;
+	return(yInd - 1) // accts for zero-indexing in js
 } // end of getRowIndex
 
 var clearXslice = function() {

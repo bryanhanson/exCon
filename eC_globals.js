@@ -44,6 +44,7 @@ var svg = d3.select('#main')
     // .style('height',winHeight);
 
 // Copy xD and yD as we'll need access to the original value
+// The units of these are whatever is passed from the R side (native)
 
 var Dx = xD,
     Dy = yD;

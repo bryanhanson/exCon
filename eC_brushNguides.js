@@ -31,12 +31,18 @@ function activateBrush() {
 	var y0 = tPad + conHeight + gap
 	var x1 = x0 + mapWidth
 	var y1 = y0 + mapHeight
-	var xDminX = ((minX-x0)/(x1-x0)) // as a frac of map region
-	var xDmaxX =  ((maxX-x0)/(x1-x0))
-	var yDminY = ((minY-y0)/(y1-y0))
-	var yDmaxY =  ((maxY-y0)/(y1-y0))
-	xD = [xDminX*Dx[0], xDmaxX*Dx[1]] // update global values
-	yD = [(1-yDmaxY)*Dy[0], (1-yDminY)*Dy[1]]
+	var xL = ((minX-x0)/(x1-x0)) // as a frac of map region
+	var xU =  ((maxX-x0)/(x1-x0))
+	var yL = ((minY-y0)/(y1-y0))
+	var yU =  ((maxY-y0)/(y1-y0))
+    var spanX = Dx[1] - Dx[0]
+    var spanY = Dy[1] - Dy[0]
+	xD = [((spanX*xL) + Dx[0]), ((spanX*xU) + Dx[0])] // update global values
+    // yD is more complex since the reference point is the top of the screen
+	// yD = [((spanY*yL) + Dy[0]), ((spanY*yU) + Dy[0])] // almost works
+    yD = [(spanY*(1-yU) + Dy[0]), (spanY*(1-yL) + Dy[0])]
+    // console.log("xD after brushing is:", xD)
+    // console.log("yD after brushing is:", yD)
 	clearContour();
 	drawContour(xD, yD);
     } // end of brushed

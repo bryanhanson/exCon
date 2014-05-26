@@ -53,6 +53,7 @@ exCon <- function(M = NULL,
 
 	# We need the first and last values of x and y
 	# to be the xD and yD (the domains)
+	# These are in the units of whatever is supplied (native)
 
 	XD <- toJSON(c(x[1], x[length(x)]))
 	YD <- toJSON(c(y[1], y[length(y)]))
