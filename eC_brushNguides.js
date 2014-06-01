@@ -22,29 +22,26 @@ function activateBrush() {
 	.call(brush)
 
     function brushed() { // Handles the response to brushing
-	var extent = brush.extent() // reports in pixels
-	var minX = extent[0][0]
-	var maxX = extent[1][0]
-	var minY = extent[0][1]
-	var maxY = extent[1][1]
-	var x0 = lPad + conWidth + gap // dim of map region
-	var y0 = tPad + conHeight + gap
-	var x1 = x0 + mapWidth
-	var y1 = y0 + mapHeight
-	var xL = ((minX-x0)/(x1-x0)) // as a frac of map region
-	var xU =  ((maxX-x0)/(x1-x0))
-	var yL = ((minY-y0)/(y1-y0))
-	var yU =  ((maxY-y0)/(y1-y0))
-    var spanX = Dx[1] - Dx[0]
-    var spanY = Dy[1] - Dy[0]
-	xD = [((spanX*xL) + Dx[0]), ((spanX*xU) + Dx[0])] // update global values
-    // yD is more complex since the reference point is the top of the screen
-	// yD = [((spanY*yL) + Dy[0]), ((spanY*yU) + Dy[0])] // almost works
-    yD = [(spanY*(1-yU) + Dy[0]), (spanY*(1-yL) + Dy[0])]
-    // console.log("xD after brushing is:", xD)
-    // console.log("yD after brushing is:", yD)
-	clearContour();
-	drawContour(xD, yD);
+    	var extent = brush.extent() // reports in pixels
+    	var minX = extent[0][0]
+    	var maxX = extent[1][0]
+    	var minY = extent[0][1]
+    	var maxY = extent[1][1]
+    	var x0 = lPad + conWidth + gap // dim of map region
+    	var y0 = tPad + conHeight + gap
+    	var x1 = x0 + mapWidth
+    	var y1 = y0 + mapHeight
+    	var xL = ((minX-x0)/(x1-x0)) // as a frac of map region
+    	var xU =  ((maxX-x0)/(x1-x0))
+    	var yL = ((minY-y0)/(y1-y0))
+    	var yU =  ((maxY-y0)/(y1-y0))
+        var spanX = Dx[1] - Dx[0]
+        var spanY = Dy[1] - Dy[0]
+    	xD = [((spanX*xL) + Dx[0]), ((spanX*xU) + Dx[0])] // update global values
+        // yD is more complex since the reference point is the top of the screen
+        yD = [(spanY*(1-yU) + Dy[0]), (spanY*(1-yL) + Dy[0])]
+    	clearContour();
+    	drawContour(xD, yD);
     } // end of brushed
 
 } // end of activateBrush
@@ -81,8 +78,8 @@ var activateGuides = function() {
     	mX = mX/conWidth // as fraction
     	mY = 1 - (mY/conHeight)
     	followMouse(mX, mY);
-    	// document.Show.mouseX.value = mX;
-    	// document.Show.mouseY.value = mY;
+    	document.Show.mouseX.value = mX;
+    	document.Show.mouseY.value = mY;
 
         if (mY == 0 || mY == 1) {
             clearXslice()

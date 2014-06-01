@@ -23,7 +23,7 @@ var getXsliceLimits = function() {
 	// based on xD (the limits)
 	// These are column numbers
 
-	var xbase = d3.range(Dx[0], Dx[1]+1); // array of column numbers 1:nc
+	var xbase = d3.range(Dx[0], Dx[1]+1);
 	var left = Math.round(xD[0]); // left edge/index of plotting window
 	var right = Math.round(xD[1]); // right edge
 	var lIndex = xbase.indexOf(left);
@@ -69,10 +69,10 @@ var getRowIndex = function(M, mY) { // do we need to specify the args?
 	var yPick = yInd // This is the cursor position in native units
 	// above correctly reports in native yD units
 	// below reports by row of M
-	yInd = (yInd*nRow/(Dy[1]-Dy[0])) - Dy[0]
+	yInd = mY*nRow*(yD[1] - yD[0]) + nRow*yD[0]
 	yInd =  Math.round(yInd)
     document.Show.mouseRow.value = yInd;
-	document.Show.mouseVal.value = yPick;
+	document.Show.mouseYval.value = yPick;
 	return(yInd - 1) // accts for zero-indexing in js
 } // end of getRowIndex
 
@@ -150,11 +150,10 @@ var getYsliceLimits = function() {
 	// based on yD
 	// These are row numbers
 
-	var nr = arraySize(M)[0]; // no. of rows in data set
-	var ybase = d3.range(1, nr + 1); // array of row numbers 1:nr
+	var ybase = d3.range(Dy[0], Dy[1]+1); // array of row numbers 1:nr
 	// The next steps find the indices corresponding to yD
-	var bottom = Math.round(yD[0] * nr + 1); // bottom value
-	var top = Math.round(yD[1] * nr); // top value of desired plotting window
+	var bottom = Math.round(yD[0]); // bottom value
+	var top = Math.round(yD[1]); // top value of desired plotting window
 	var bIndex = ybase.indexOf(bottom);
 	var tIndex = ybase.indexOf(top);
 	return [bIndex, tIndex];
@@ -190,15 +189,13 @@ var getYsliceXvalues = function(col){
 
 var getColIndex = function(M, mX) { // Row index in the original matrix
 	var nCol = arraySize(M)[1];
-	var xU = xD[1] * nCol;
-	var xL = xD[0] * nCol;
-	var xInd = xL + ((mX) * (xU - xL));
+	var xInd = xD[0] + ((mX) * (xD[1] - xD[0]))
+	var xPick = xInd
+	xInd = mX*nCol*(xD[1] - xD[0]) + nCol*xD[0]
 	xInd  =  Math.round(xInd);
-	xInd = xInd - 1;
-	if (xInd < 0) {xInd = 0};
-	if (xInd > nCol - 1) {xInd = nCol - 1};
 	document.Show.mouseCol.value = xInd;
-	return(xInd);
+	document.Show.mouseXval.value = xPick;
+	return(xInd-1);
 } // end of getColIndex
 
 var clearYslice = function() {
