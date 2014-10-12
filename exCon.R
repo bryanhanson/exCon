@@ -55,16 +55,16 @@ exCon <- function(M = NULL,
 	# to be the xD and yD (the domains)
 	# These are in the units of whatever is supplied (native)
 
-	XD <- toJSON(c(x[1], x[length(x)]))
-	YD <- toJSON(c(y[1], y[length(y)]))
+	DX <- toJSON(c(x[1], x[length(x)]))
+	DY <- toJSON(c(y[1], y[length(y)]))
 
 	# Read in the JavaScript modules, and pre-pend M & CL
 	# Write out as a new file, exCon.js
 
 	data1 <- paste("var CL = ", CL, sep = "")
 	data2 <- paste("var M = ", M, sep = "")
-	data3 <- paste("var xD = ", XD, sep = "")
-	data4 <- paste("var yD = ", YD, sep = "")
+	data3 <- paste("var Dx = ", DX, sep = "")
+	data4 <- paste("var Dy = ", DY, sep = "")
 	js1 <- readLines(con = "eC_globals.js")
 	js2 <- readLines(con = "eC_controls.js")
 	js3 <- readLines(con = "eC_contours.js")

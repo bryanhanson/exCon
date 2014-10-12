@@ -37,9 +37,14 @@ function activateBrush() {
     	var yU =  ((maxY-y0)/(y1-y0))
         var spanX = Dx[1] - Dx[0]
         var spanY = Dy[1] - Dy[0]
-    	xD = [((spanX*xL) + Dx[0]), ((spanX*xU) + Dx[0])] // update global values
+        // update global values
+    	xD = [((spanX*xL) + Dx[0]), ((spanX*xU) + Dx[0])]
         // yD is more complex since the reference point is the top of the screen
         yD = [(spanY*(1-yU) + Dy[0]), (spanY*(1-yL) + Dy[0])]
+        // save the extent in fraction units, needed by
+        // the row counter in eC_slices.js
+        // reference point 0,0 is lower left
+        brushExtent = [xL, xU, 1-yU, 1-yL] // global variable
     	clearContour();
     	drawContour(xD, yD);
     } // end of brushed
@@ -84,13 +89,15 @@ var activateGuides = function() {
         if (mY == 0 || mY == 1) {
             clearXslice()
         } else {
-    	    drawXslice(getRowIndex(M, mY))
+            var row = getRowIndex(M, mY)
+    	    drawXslice(row)
         }
 
         if (mX ==0 || mX == 1) {
             clearYslice()
         } else {
-	        drawYslice(getColIndex(M, mX))
+            var col = getColIndex(M, mX)
+	        drawYslice(col)
         }
 
     } // end of getMouseXY

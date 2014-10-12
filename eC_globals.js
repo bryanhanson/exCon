@@ -43,13 +43,16 @@ var svg = d3.select('#main')
     // .style('width', winWidth)
     // .style('height',winHeight);
 
-// Copy xD and yD as we'll need access to the original value
-// The units of these are whatever is passed from the R side (native)
+// Initialize xD & yD
+// Dx & Dy are the domains passed in by the function
+// Domains are in native units, as supplied by the user
+// Defaults via exCon.R are [0,1]
+// xD & yD are the brushing coordinates
 
-var Dx = xD,
-    Dy = yD;
+var xD = Dx,
+    yD = Dy;
 
-// Define xF and yF; x scale factor.  These are the amplification factors
+// Define xF and yF; These are the amplification factors
 // which control the vertical scales of the slices, and are set
 // by the controls
 
@@ -61,3 +64,8 @@ var xF = 1.0,
 
 var xM = 0.5,
     yM = 0.5;
+
+// Initialize an array with 4 elements which will hold the
+// brush extent in fractional units
+
+var brushExtent = [0, 1, 0, 1]

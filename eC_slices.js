@@ -63,17 +63,16 @@ var getXsliceYvalues = function(row) {
 
 var getRowIndex = function(M, mY) { // do we need to specify the args?
 
-	var nRow = arraySize(M)[0];
+	// See getColIndex for more comments
 	// IMPORTANT: reference point for brushing extent is lower left corner!
-	var yInd = yD[0] + ((mY) * (yD[1] - yD[0]))
-	var yPick = yInd // This is the cursor position in native units
-	// above correctly reports in native yD units
-	// below reports by row of M
-	yInd = mY*nRow*(yD[1] - yD[0]) + nRow*yD[0]
-	yInd =  Math.round(yInd)
-    document.Show.mouseRow.value = yInd;
-	document.Show.mouseYval.value = yPick;
-	return(yInd - 1) // accts for zero-indexing in js
+	var yNat = yD[0] + ((mY) * (yD[1] - yD[0]))
+	document.Show.mouseYnat.value = yNat
+	var nRow = arraySize(M)[0]
+	var nRowAdj = nRow*(brushExtent[3]-brushExtent[2])
+	var yInd = (mY*nRowAdj + nRow*brushExtent[2])
+	yInd = Math.round(yInd);
+	document.Show.mouseRow.value = yInd;
+	return(yInd-1);
 } // end of getRowIndex
 
 var clearXslice = function() {
@@ -142,7 +141,7 @@ var drawXslice = function(row) {
 } // end of drawXslice
 
 
-// Now everything related to the y slice
+// ----- Now everything related to the y slice -----
 
 var getYsliceLimits = function() {
 
@@ -187,14 +186,21 @@ var getYsliceXvalues = function(col){
 }
 
 
-var getColIndex = function(M, mX) { // Row index in the original matrix
-	var nCol = arraySize(M)[1];
-	var xInd = xD[0] + ((mX) * (xD[1] - xD[0]))
-	var xPick = xInd
-	xInd = mX*nCol*(xD[1] - xD[0]) + nCol*xD[0]
-	xInd  =  Math.round(xInd);
+var getColIndex = function(M, mX) {
+
+	// Report the mouse position in native coordinates
+
+	var xNat = xD[0] + ((mX) * (xD[1] - xD[0]))
+	document.Show.mouseXnat.value = xNat
+
+	// Report the mouse position as a column
+
+	var nCol = arraySize(M)[1] // No. rows in the original matrix
+	// Adjust no. cols to acct for brushing
+	nColAdj = nCol*(brushExtent[1]-brushExtent[0])
+	var xInd = nCol*brushExtent[0] + mX*nColAdj
+	xInd = Math.round(xInd);
 	document.Show.mouseCol.value = xInd;
-	document.Show.mouseXval.value = xPick;
 	return(xInd-1);
 } // end of getColIndex
 

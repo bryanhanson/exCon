@@ -200,6 +200,7 @@ var resetAll = function() {
     drawContour(Dx,Dy);
     resetXslice();
     resetYslice();
+    brushExtent = [0, 1, 0, 1]
 }
 
 var resetXslice = function() {
