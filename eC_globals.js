@@ -5,7 +5,7 @@
 
 // Define layout variables for each subsection of the display
 // These are fixed sizes, they don't change even if the window is resized
-// 15" MacBookPro Retina screen is 2880 x 1800, non-Retina is 1440 x 900
+// 15" MacBookPro Retina screen is 1440 x 900
 
 // Official abbrevs to be used: y slice area: ysl, x slice area: xsl,
 // locator map: map, contour area: con
@@ -44,10 +44,11 @@ var svg = d3.select('#main')
     // .style('height',winHeight);
 
 // Initialize xD & yD
-// Dx & Dy are the domains passed in by the function
+// Dx & Dy are the domains passed in by the R function
 // Domains are in native units, as supplied by the user
-// Defaults via exCon.R are [0,1]
-// xD & yD are the brushing coordinates
+// Defaults via exCon.R are [0,1] unless user provides others
+
+// xD & yD are the brushing coordinates always on [0,1] ????
 
 var xD = Dx,
     yD = Dy;

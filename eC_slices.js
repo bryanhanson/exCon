@@ -20,15 +20,22 @@ var arraySize = function(array) { // merged from several SO post ideas
 var getXsliceLimits = function() {
 
 	// This function gets the left & right edge indices
-	// based on xD (the limits)
-	// These are column numbers
+	// starting from native units (ie Dx, Dx units) ????
+	// and taking brushing into account.
+	// Answer in terms of column indices
+	var nc = arraySize(M)[1];
+	var left = Math.floor(brushExtent[0]*nc);
+	var right = Math.ceil(brushExtent[1]*nc);
+	if (left < 1) left = 1 // Compensate for rounding
+	if (right > nc) right = nc
+	return [left, right];
 
-	var xbase = d3.range(Dx[0], Dx[1]+1);
-	var left = Math.round(xD[0]); // left edge/index of plotting window
-	var right = Math.round(xD[1]); // right edge
-	var lIndex = xbase.indexOf(left);
-	var rIndex = xbase.indexOf(right);
-	return [lIndex, rIndex];
+	// var xbase = d3.range(Dx[0], Dx[1]+1, 0.01); // Native units
+	// var left = Math.round(brushExtent[0]*(Dx[1]-Dx[0])); // Fraction
+	// var right = Math.round(brushExtent[1]*(Dx[1]-Dx[0])); // Fraction
+	// var lIndex = xbase.indexOf(left);
+	// var rIndex = xbase.indexOf(right);
+	// return [lIndex, rIndex];
 
 } // end of getXsliceLimits
 
@@ -40,6 +47,8 @@ var getXsliceXvalues = function() {
 
 	var lIndex = getXsliceLimits()[0];
 	var rIndex = getXsliceLimits()[1];
+	// console.log(lIndex)
+	// console.log(rIndex)
 	var nc = arraySize(M)[1];
 	var xbase = d3.range(1, nc + 1);
 	var xdata = xbase.slice(lIndex, rIndex + 1);
@@ -57,6 +66,7 @@ var getXsliceYvalues = function(row) {
 	var lIndex = getXsliceLimits()[0];
 	var rIndex = getXsliceLimits()[1];
 	var ydata = ybase.slice(lIndex, rIndex + 1);
+	// console.log(ydata)
 	return ydata;
 } // end of getXsliceYvalues
 
@@ -72,7 +82,7 @@ var getRowIndex = function(M, mY) { // do we need to specify the args?
 	var yInd = (mY*nRowAdj + nRow*brushExtent[2])
 	yInd = Math.round(yInd);
 	document.Show.mouseRow.value = yInd;
-	return(yInd-1);
+	return(yInd);
 } // end of getRowIndex
 
 var clearXslice = function() {
@@ -145,18 +155,13 @@ var drawXslice = function(row) {
 
 var getYsliceLimits = function() {
 
-	// This function gets the bottom and top edge limits
-	// based on yD
-	// These are row numbers
-
-	var ybase = d3.range(Dy[0], Dy[1]+1); // array of row numbers 1:nr
-	// The next steps find the indices corresponding to yD
-	var bottom = Math.round(yD[0]); // bottom value
-	var top = Math.round(yD[1]); // top value of desired plotting window
-	var bIndex = ybase.indexOf(bottom);
-	var tIndex = ybase.indexOf(top);
-	return [bIndex, tIndex];
-
+	// See notes in getXsliceLimits
+	var nr = arraySize(M)[0];
+	var bottom = Math.floor(brushExtent[2]*nr);
+	var top = Math.ceil(brushExtent[3]*nr);
+	if (bottom < 1) bottom = 1
+	if (top > nr) top = nr
+	return [bottom, top];
     } // end of getYsliceLimits
 
 
@@ -201,7 +206,7 @@ var getColIndex = function(M, mX) {
 	var xInd = nCol*brushExtent[0] + mX*nColAdj
 	xInd = Math.round(xInd);
 	document.Show.mouseCol.value = xInd;
-	return(xInd-1);
+	return(xInd);
 } // end of getColIndex
 
 var clearYslice = function() {
@@ -211,11 +216,8 @@ var clearYslice = function() {
 
 var drawYslice = function(col) {
 
-	// WARNING: the matrix data has the columns in the correct order
-	// However, row 1 of the M matrix is at the bottom of the display
-	// and js counts from the top of the svg
-
-	// See drawXslice for detailed comments
+	// The Y slice is the slice parallel to the y direction
+	// See drawXslice for additional detailed comments
 
 	d3.selectAll(".yslice")
 	    .remove();
@@ -226,12 +228,13 @@ var drawYslice = function(col) {
 	// d3.selectAll("defs")
 	// 	.remove();
 
-    // Important: on the y slice, the x values are the column slice,
+    // Important: on the Y slice, the x values are the column slice,
     // and the y values are the row numbers (since the plot is rotated 90)
 
 	var xdata = getYsliceXvalues(col);
 	var ydata = getYsliceYvalues();
-	// Because of how the x data is created, we need to reverse it
+	// Because of how the x data is referenced (top is 0),
+	// we need to reverse it
 	var xy = []; // start empty, add each element one at a time
 	for(var i = 0; i < ydata.length; i++ ) {
 	    xy.push({x: xdata[i], y: ydata[i]});
@@ -265,8 +268,8 @@ var drawYslice = function(col) {
 	ySlice.append("path")
 		// .attr("transform", "translate(" + (lPad + conWidth + gap + yslWidth)
 		//  	+ "," + (tPad) + ")")
-.attr("transform", "translate(" + (lPad + conWidth + gap)
-	+ "," + (0) + ")")
+		.attr("transform", "translate(" + (lPad + conWidth + gap)
+			+ "," + (0) + ")")
 		.attr({width: yslWidth,
 			height: yslHeight,
 			"class": "line",

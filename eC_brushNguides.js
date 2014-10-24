@@ -4,7 +4,7 @@
 
 // Brush related functions
 
-function activateBrush() {
+var activateBrush = function() {
     // Creates the brush, appends it, and defines its behavior
 
     // IMPORTANT: xD & yD are global variables
@@ -21,7 +21,10 @@ function activateBrush() {
 	.attr("class", "brush")
 	.call(brush)
 
+    // brushed = function() { // doesn't work
+    // var brushed = function() { // doesn't work
     function brushed() { // Handles the response to brushing
+
     	var extent = brush.extent() // reports in pixels
     	var minX = extent[0][0]
     	var maxX = extent[1][0]
@@ -104,7 +107,7 @@ var activateGuides = function() {
 
     var followMouse = function(mX, mY) { // This draws the guides, nothing else
 
-    	var xPos = (mX * conWidth) + lPad // mX now in pixels
+        var xPos = (mX * conWidth) + lPad // mX now in pixels
     	var yPos = tPad + conHeight - (mY * conHeight) // mY now in pixels
 
     	var vertU = {x: xPos, y: tPad } // x, y at the top of window
