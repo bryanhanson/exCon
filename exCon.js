@@ -508,19 +508,33 @@ var activateGuides = function() {
     	document.Show.mouseX.value = mX;
     	document.Show.mouseY.value = mY;
 
-        if (mY == 0 || mY == 1) {
+        if (mY <= 0.01 || mY >= 0.99) {
             clearXslice()
         } else {
             var row = getRowIndex(M, mY)
-    	    drawXslice(row)
+            drawXslice(row)
         }
 
-        if (mX ==0 || mX == 1) {
+        if (mX <= 0.01 || mX >= 0.99) {
             clearYslice()
         } else {
             var col = getColIndex(M, mX)
-	        drawYslice(col)
+            drawYslice(col)
         }
+
+        // if (mY == 0 || mY == 1) {
+        //     clearXslice()
+        // } else {
+        //     var row = getRowIndex(M, mY)
+    	//     drawXslice(row)
+        // }
+        //
+        // if (mX == 0 || mX == 1) {
+        //     clearYslice()
+        // } else {
+        //     var col = getColIndex(M, mX)
+	    //     drawYslice(col)
+        // }
 
     } // end of getMouseXY
 

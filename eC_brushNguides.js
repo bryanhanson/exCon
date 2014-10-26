@@ -89,18 +89,20 @@ var activateGuides = function() {
     	document.Show.mouseX.value = mX;
     	document.Show.mouseY.value = mY;
 
-        if (mY == 0 || mY == 1) {
+        // using 0.01 & 0.99 to avoid a silent rounding error
+
+        if (mY <= 0.01 || mY >= 0.99) {
             clearXslice()
         } else {
             var row = getRowIndex(M, mY)
-    	    drawXslice(row)
+            drawXslice(row)
         }
 
-        if (mX ==0 || mX == 1) {
+        if (mX <= 0.01 || mX >= 0.99) {
             clearYslice()
         } else {
             var col = getColIndex(M, mX)
-	        drawYslice(col)
+            drawYslice(col)
         }
 
     } // end of getMouseXY
