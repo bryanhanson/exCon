@@ -11,6 +11,7 @@ var drawOutlines = function() {
     // 	       stroke: 'black',
     // 	       'stroke-width': 3,
     // 	       fill:'white'});
+
     svg.append('rect') // outline contour area
 	.attr({x: lPad,
 	       y: tPad,
@@ -19,6 +20,7 @@ var drawOutlines = function() {
 	       stroke: 'black',
 	       'stroke-width': 1.5,
 	       fill: 'white'});
+
     svg.append('rect') // outline map area
 	.attr({x: lPad + conWidth + gap,
 	       y: tPad + conHeight + gap,
@@ -27,6 +29,7 @@ var drawOutlines = function() {
 	       stroke: 'black',
 	       'stroke-width': 1.5,
 	       fill:'white'});
+
     svg.append('rect') // outline x slice
 	.attr({x: lPad,
 	       y: tPad + conHeight + gap,
@@ -36,6 +39,7 @@ var drawOutlines = function() {
 	       stroke: 'black',
 	       'stroke-width': 1.5,
 	       fill:'white'});
+
     svg.append('rect') // outline y slice
 	.attr({x: lPad + conWidth + gap,
 	       y: tPad,
@@ -82,14 +86,13 @@ var drawControls = function(){
     // (coordinates with CSS that way)
 
     var g1 = svg.append("g")
-//        .attr({id: "resetButton"})
 
     g1.append('circle') // master reset button
 	    .attr({cx: Rx, cy: Ry, r: butSize})
         .attr({class: "resetButton"})
         .attr({fill: "#008B00"})
         .attr({onclick: "resetAll()" })
-//        .text('R')
+
     g1.append('text') // master reset button
 	    .attr({x: Rx, y: Ry + 7})
         .attr({"font-family": "sans-serif"})
@@ -105,6 +108,7 @@ var drawControls = function(){
         .attr({class: "resetButton"})
         .attr({fill: "#008B00"})
         .attr({onclick: "resetXslice()" })
+
     g1.append('text') // x slice reset button
 	    .attr({x: xRx, y: xRy + 7})
         .attr({"font-family": "sans-serif"})
@@ -120,6 +124,7 @@ var drawControls = function(){
         .attr({class: "resetButton"})
         .attr({fill: "#008B00"})
         .attr({onclick: "resetYslice()" })
+
     g1.append('text') // y slice reset button
 	    .attr({x: yRx, y: yRy + 7})
         .attr({"font-family": "sans-serif"})
@@ -131,12 +136,12 @@ var drawControls = function(){
         .text('R')
 
     var g2 = svg.append("g")
-//        .attr({id: "incButton"})
 
     g2.append('circle') // x slice increase button
 	    .attr({cx: plusXx, cy: plusXy, r: butSize})
         .attr({class: "incButton"})
         .attr({onclick: "increaseXslice()" })
+
     g2.append('text') // x slice increase button
 	    .attr({x: plusXx, y: plusXy + 6})
         .attr({"font-family": "sans-serif"})
@@ -151,6 +156,7 @@ var drawControls = function(){
 	    .attr({cx: plusYx, cy: plusYy, r: butSize})
         .attr({class: "incButton"})
         .attr({onclick: "increaseYslice()" })
+
     g2.append('text') // y slice increase button
 	    .attr({x: plusYx, y: plusYy + 6})
         .attr({"font-family": "sans-serif"})
@@ -162,12 +168,12 @@ var drawControls = function(){
         .text('+')
 
     var g3 = svg.append("g")
-//        .attr({id: "decButton"})
 
     g3.append('circle') // x slice decrease button
 	    .attr({cx: minusXx, cy: minusXy, r: butSize, text: '-'})
         .attr({class: "decButton"})
         .attr({onclick: "decreaseXslice()" })
+
     g3.append('text') // x slice decrease button
 	    .attr({x: minusXx, y: minusXy + 9})
         .attr({"font-family": "sans-serif"})
@@ -182,6 +188,7 @@ var drawControls = function(){
 	    .attr({cx: minusYx, cy: plusYy, r: butSize})
         .attr({class: "decButton"})
         .attr({onclick: "decreaseYslice()" })
+
     g3.append('text') // y slice decrease button
 	    .attr({x: minusYx, y: plusYy + 9})
         .attr({"font-family": "sans-serif"})
@@ -211,32 +218,16 @@ var resetXslice = function() {
     } else {
         drawXslice(getRowIndex(M, mY))
     }
-    //
-    // if (mX ==0 || mX == 1) {
-    //     clearYslice()
-    // } else {
-    //     drawYslice(getColIndex(M, mX))
-    // }
-    //
-    // drawXslice(getRowIndex(M, mY))
 }
 
 var resetYslice = function() {
     xF = 1.0
-
-// if (mY == 0 || mY == 1) {
-//     clearXslice()
-// } else {
-//     drawXslice(getRowIndex(M, mY))
-// }
 
     if (mX ==0 || mX == 1) {
         clearYslice()
     } else {
         drawYslice(getColIndex(M, mX))
     }
-
-    // drawYslice(getColIndex(M, mX))
 }
 
 var increaseXslice = function() {

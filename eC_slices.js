@@ -29,14 +29,6 @@ var getXsliceLimits = function() {
 	if (left < 1) left = 1 // Compensate for rounding
 	if (right > nc) right = nc
 	return [left, right];
-
-	// var xbase = d3.range(Dx[0], Dx[1]+1, 0.01); // Native units
-	// var left = Math.round(brushExtent[0]*(Dx[1]-Dx[0])); // Fraction
-	// var right = Math.round(brushExtent[1]*(Dx[1]-Dx[0])); // Fraction
-	// var lIndex = xbase.indexOf(left);
-	// var rIndex = xbase.indexOf(right);
-	// return [lIndex, rIndex];
-
 } // end of getXsliceLimits
 
 
@@ -61,12 +53,10 @@ var getXsliceYvalues = function(row) {
 
 	// This function creates the y values needed for the x slice
 	// See getXsliceLimits for logic & comments
-	// console.log("row is:", row)
 	var ybase = M[row]; // the y values in the row
 	var lIndex = getXsliceLimits()[0];
 	var rIndex = getXsliceLimits()[1];
 	var ydata = ybase.slice(lIndex, rIndex + 1);
-	// console.log(ydata)
 	return ydata;
 } // end of getXsliceYvalues
 
@@ -266,8 +256,6 @@ var drawYslice = function(col) {
 		.attr("class", "yViewport")
 
 	ySlice.append("path")
-		// .attr("transform", "translate(" + (lPad + conWidth + gap + yslWidth)
-		//  	+ "," + (tPad) + ")")
 		.attr("transform", "translate(" + (lPad + conWidth + gap)
 			+ "," + (0) + ")")
 		.attr({width: yslWidth,
