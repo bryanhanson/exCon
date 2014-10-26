@@ -1,0 +1,18 @@
+
+# CITATION file
+
+citHeader("To cite package 'exCon' in publications use:")
+
+desc <- packageDescription("exCon: Interactive Exploration of Contour Data")
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
+vers <- paste("R package version", desc$Version)
+web <- "github.com/bryanhanson/exCon"
+
+citEntry(entry = "Manual",
+	title = "exCon: Interactive Exploration of Contour Data",
+	author = personList(as.person("Bryan A. Hanson"), as.person("Kristina R. Mulry")),
+	year = year,
+	note = vers,
+	web = web,
+	textVersion = paste("Bryan A. Hanson & Kristina R. Mulry (", year, ") exCon: Interactive Exploration of Contour Data. ",
+		vers, ", ", web, sep = ""))
