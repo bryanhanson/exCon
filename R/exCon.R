@@ -42,9 +42,11 @@
 ##' @name exCon
 ##' @rdname exCon
 ##' @export
+##' @import jsonlite
 ##' @keywords plot
 ##'
 ##' @examples
+##' require(jsonlite)
 ##' exCon(M = volcano)
 ##'
 exCon <- function(M = NULL,
@@ -60,7 +62,6 @@ exCon <- function(M = NULL,
 
 	if (is.null(M)) stop("You must provide a matrix M")
 	if (!is.matrix(M)) stop("M must be a matrix")
-	require("jsonlite")
 
 	# M is the raw, topographic data matrix:
 	# think of it as altitudes on an x,y grid
@@ -81,12 +82,6 @@ exCon <- function(M = NULL,
 	# Get the contour lines into JSON format
 
 	# This is the manual approach, from Yihui Xie's blog
-	# [ { "x": [...], "y": [....] } ]
-	# CL = paste(unlist(lapply(CL, function(z) {
-	  # xs = paste(round(z$x, 3), collapse = ',')
-	  # ys = paste(round(z$y, 3), collapse = ',')
-	  # sprintf('{"x": [%s], "y": [%s]}', xs, ys)})), collapse = ',')
-	# CL <- paste("[", CL, "]") # this completes the proper JSON format
 
 	# This is the automated approach which brings along extra info
 	# but it is ignored since it is never requested.
@@ -115,11 +110,13 @@ exCon <- function(M = NULL,
 	# Get the JavaScript modules & related files
 	
 	cd <- getwd()
-	fd <- system.file("extdata", package = "exCon")
 	td <- tempdir()
-	file.copy(fd, td)
+	fd <- system.file("extdata", package = "exCon")
+	eCfiles <- c("eC_globals.js", "eC_controls.js", "eC_contours.js",
+	"eC_brushNguides.js", "eC_slices.js", "eC_main.js", "eC.css", "exCon.html")	
+	file.copy(paste(fd, eCfiles, sep = "/"), paste(td, eCfiles, sep = "/"))
 	setwd(td)
-	
+
 	js1 <- readLines(con = "eC_globals.js")
 	js2 <- readLines(con = "eC_controls.js")
 	js3 <- readLines(con = "eC_contours.js")

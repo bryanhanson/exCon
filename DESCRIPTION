@@ -5,7 +5,13 @@ Version: 0.1-0
 Date: 2014
 Authors@R: c(person("Bryan", "Hanson", role = c("aut", "cre"), email =
     "hanson@depauw.edu"), person("Kristina", "Mulry", role = "ctb"))
-Description: 
+Description: exCon is an interactive tool to explore topographic-like data
+    sets.  Such data sets take the form of a matrix in which the rows and
+    columns provide location/frequency information, and the matrix elements
+    contain altitude/response information.  Such data is found in cartography,
+    2D spectroscopy and chemometrics.  exCon creates an interactive web page
+    showing the contoured data set along with slices from the original matrix
+    parallel to each dimension. The page is written in d3/javascript.
 License: GPL-3
 Imports:
     jsonlite

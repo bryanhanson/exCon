@@ -55,6 +55,7 @@ movements quite a bit, but it is still usable.  A 5000 x 5000 matrix causes
 Chrome to crash.
 }
 \examples{
+require(jsonlite)
 exCon(M = volcano)
 }
 \keyword{plot}
