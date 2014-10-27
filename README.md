@@ -7,6 +7,18 @@ Use of `exCon` will be very simple: call the `R` function `exCon` with a matrix 
 
 Currently, we are working on the package infrastructure.
 
+### Performance
+
+In testing so far, a 4000 x 4000 matrix with 5 contour levels requires about 30 seconds to create the contours (done by `R` function `contour`, not part of the `javascrip`).  The resulting web page in Chrome appears to be about 85 Mb in size and the guide movements lag the mouse movements quite a bit, but it is still usable.  A 5000 x 5000 matrix causes Chrome to crash.
+
+### To-Do
+
+* Handling different browsers.
+* Dynamic page title?
+* Extend guides into slice areas?
+* Make layout responsive to dimensions & aspect ratio of original data.
+* Color different contour levels & add scale
+
 ### Authors
 
 `exCon` was developed by Kristina R. Mulry and Bryan A. Hanson starting in the Spring of 2014, at DePauw University.
