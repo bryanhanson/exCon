@@ -508,6 +508,9 @@ var activateGuides = function() {
     	document.Show.mouseX.value = mX;
     	document.Show.mouseY.value = mY;
 
+        // Using 0.01 & 0.99 to avoid a silent rounding error
+        // just as cursor moved out of contour area
+
         if (mY <= 0.01 || mY >= 0.99) {
             clearXslice()
         } else {
@@ -521,20 +524,6 @@ var activateGuides = function() {
             var col = getColIndex(M, mX)
             drawYslice(col)
         }
-
-        // if (mY == 0 || mY == 1) {
-        //     clearXslice()
-        // } else {
-        //     var row = getRowIndex(M, mY)
-    	//     drawXslice(row)
-        // }
-        //
-        // if (mX == 0 || mX == 1) {
-        //     clearYslice()
-        // } else {
-        //     var col = getColIndex(M, mX)
-	    //     drawYslice(col)
-        // }
 
     } // end of getMouseXY
 

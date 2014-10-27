@@ -1,23 +1,37 @@
 
 ## exCon: Interactive Exploration of Contour Data
 
-`exCon` is an `R` package under development.  `exCon` is an interactive tool to explore topographic-like data sets.  Such data sets take the form of a matrix in which the rows and columns provide location/frequency information, and the matrix elements contain altitude/response information.  Such data is found in cartography, 2D spectroscopy and chemometrics.
+`exCon` is an interactive tool to explore topographic-like data
+sets.  Such data sets take the form of a matrix in which the rows and
+columns provide location/frequency information, and the matrix elements
+contain altitude/response information.  Such data is found in cartography,
+2D spectroscopy and chemometrics.  `exCon` creates an interactive web page
+showing the contoured data set along with slices from the original matrix
+parallel to each dimension. The page is written in `d3/javascript`.
 
-Use of `exCon` will be very simple: call the `R` function `exCon` with a matrix as the argument, and `R` will create an interactive web page showing the contoured data set along with slices from the original matrix parallel to each dimension.
+### Installation from Github using R:
 
-Currently, we are working on the package infrastructure.
+````r
+install.packages("devtools")
+library("devtools")
+install_github(repo = "bryanhanson/ChemoSpec", ref = "master")
+library("ChemoSpec")
+````
+If you use `ref = "some_other_branch"` you can get other branches that might be available.  They may or may not pass CRAN checks and thus may not install automatically using the method above.  Check the NEWS file to see what's up.
 
-### Performance
+### Installation from CRAN using R:
 
-In testing so far, a 4000 x 4000 matrix with 5 contour levels requires about 30 seconds to create the contours (done by `R` function `contour`, not part of the `javascrip`).  The resulting web page in Chrome appears to be about 85 Mb in size and the guide movements lag the mouse movements quite a bit, but it is still usable.  A 5000 x 5000 matrix causes Chrome to crash.
+````r
+chooseCRANmirror() # choose a CRAN mirror
+install.packages("exCon")
+library("exCon")
+````
 
 ### To-Do
 
-* Handling different browsers.
-* Dynamic page title?
 * Extend guides into slice areas?
 * Make layout responsive to dimensions & aspect ratio of original data.
-* Color different contour levels & add scale
+* Color different contour levels & add scale.
 
 ### Authors
 
@@ -28,3 +42,24 @@ In testing so far, a 4000 x 4000 matrix with 5 contour levels requires about 30 
 `exCon` is distributed under the GPL-3 license.  For more info, see the [GPL site.](https://gnu.org/licenses/gpl.html)
 
 Questions?  hanson@depauw.edu
+
+### Action! The `volcano` data set from `R` viewed with `exCon`.
+
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="eC.css">
+
+<div class = "inputData">
+<form name = "Show">
+row <input type = "text" name = "mouseRow" value = "0" size = "1">
+col <input type = "text" name = "mouseCol" value = "0" size = "1">
+x native <input type = "text" name = "mouseXnat" value = "0" size = "2">
+y native <input type = "text" name = "mouseYnat" value = "0" size = "2">
+x cursor <input type = "text" name = "mouseX" value = "0" size = "2">
+y cursor <input type = "text" name = "mouseY" value = "0" size = "2">
+</form>
+</div>
+
+<div id = "main", class = "BigSVG"> </div>
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src = "exCon.js"> </script>

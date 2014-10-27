@@ -17,6 +17,10 @@
 ##' @param levels  Numeric.  A vector of values (altitudes if you will) at which to
 ##' compute the contours.
 ##'
+##' @param browser Character.  Something that will make sense to your OS.  Only
+##' necessary if you want to overide your system specified browser as understood by
+##' \code{R}.  See below for further details.
+##'
 ##' @section Details: The computation of the contour lines is handled by
 ##' \code{\link[grDevices]{contourLines}}.  The result here, however, is transposed so that the
 ##' output has the same orientation as the original matrix. This is necessary because
@@ -31,11 +35,27 @@
 ##' connected point-to-point.  Thus a maximum in a slice may not correspond to 
 ##' a peak in the contour plot.
 ##' 
-##' @section Performance: In testing, a 4000 x 4000 matrix with 5 contour levels
+##' @section Browsers: The browser is called by \code{\link[utils]{browseURL}}, which
+##' in turn uses \code{\link[base]{options("browser")}}.  Exactly how this is handled
+##' is OS dependent.
+##'
+##' @section Browsers/Mac: On a Mac, the default browser is called by \code{/bin/sh/open}
+##' which in turn looks at which browser you have set in the system settings.  You can
+##' override your default with
+##' \code{browser = "/usr/bin/open -a 'Google Chrome'"} for example.
+##' Testing shows that on a Mac, Safari and Chrome perform correctly,
+##' but in Firefox the mouse cursor is slightly offset from the guides.  While it
+##' doesn't look quite right, it works correctly (the guides determine the slice displayed).
+##'
+##' @section Browsers/Other Systems: No experience!
+##'
+##' @section Performance: In testing on a 4-year old MacBook Pro, a 4000 x 4000 matrix
+##' with 5 contour levels
 ##' requires about 30 seconds to create the contours.  The resulting web page in
 ##' Chrome appears to be about 85 Mb in size and the guide movements lag the mouse
-##' movements quite a bit, but it is still usable.  A 5000 x 5000 matrix causes
-##' Chrome to crash.
+##' movements quite a bit, but it is still usable.  Sometimes the page won't load.
+##' A 5000 x 5000 matrix causes Chrome to crash. Firefox will load the 4K x 4K
+##' matrix but performance is too sluggish.  YMMV.
 ##'
 ##' @return None; side effect is an interactive web page.
 ##' 
@@ -53,7 +73,8 @@ exCon <- function(M = NULL,
 	x = seq(0, 1, length.out = nrow(M)),
 	y = seq(0, 1, length.out = ncol(M)),
 	nlevels = 5,
-	levels = pretty(range(M, na.rm = TRUE), nlevels)) {
+	levels = pretty(range(M, na.rm = TRUE), nlevels),
+	browser = NULL) {
 
 	# Bryan A. Hanson, DePauw University, April 2014
 	# This is the R front end controlling everything
@@ -134,6 +155,8 @@ exCon <- function(M = NULL,
 	# Requires Chrome (should check, and find on any platform)
 
 	pg <- "exCon.html"
+	if (!is.null(browser)) browseURL(pg, browser = browser)
+	if (is.null(browser)) browseURL(pg)
 	# this next line probably only works on Mac/Unix platforms
 	browseURL(pg, browser = "/usr/bin/open -a 'Google Chrome'")
 	#browseURL(pg)
