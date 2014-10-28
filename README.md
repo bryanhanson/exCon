@@ -45,4 +45,4 @@ Questions?  hanson@depauw.edu
 
 #### Action! The `volcano` data set from `R` viewed with `exCon`.
 
-[Click here to see exCon in action](exCon.html)
+[Click here to see exCon in action](http://bryanhanson.github.io/exCon/exCon.html)
