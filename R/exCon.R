@@ -143,14 +143,9 @@ exCon <- function(M = NULL,
 	cd <- getwd()
 	td <- tempdir()
 	fd <- system.file("extdata", package = "exCon")
-	# setwd(fd)
-	# chk1 <- Sys.chmod(list.files())
-	# print(chk1)
-	# if (!all(chk1)) stop("File permission issue")
 	eCfiles <- c("eC.css", "eC_globals.js", "eC_controls.js", "eC_contours.js",
 	"eC_brushNguides.js", "eC_slices.js", "eC_main.js", "exCon.html")	
 	chk2 <- file.copy(paste(fd, eCfiles, sep = "/"), paste(td, eCfiles, sep = "/"))
-	print(chk2)
 	if (!all(chk2)) stop("Set up of temporary directory failed")
 	setwd(td)
 
