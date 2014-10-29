@@ -2,7 +2,7 @@
 \docType{package}
 \name{exCon-package}
 \alias{exCon-package}
-\title{Lindenmayer System Functions}
+\title{Explore Contour Data Interactively}
 \description{
 exCon: Explore Contour Data Interactively
 }

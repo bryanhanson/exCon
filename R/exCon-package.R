@@ -9,7 +9,7 @@
 ##' parallel to each dimension. The page is written in d3/javascript.
 ##'
 ##' @name exCon-package
-##' @title Lindenmayer System Functions
+##' @title Explore Contour Data Interactively
 ##' @docType package
 ##' @author Bryan A. Hanson & Kristina R. Multry
 ##' @rdname exCon-package

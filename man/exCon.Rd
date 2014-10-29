@@ -27,7 +27,9 @@ necessary if you want to overide your system specified browser as understood by
 \code{R}.  See below for further details.}
 }
 \value{
-None; side effect is an interactive web page.
+None; side effect is an interactive web page.  The temporary directory
+containing the files that drive the web page is written to the console in case
+you wish to use those files.  This directory is deleted when you quit R.
 }
 \description{
 This function computes contour lines from matrix data and displays them
@@ -53,32 +55,39 @@ a peak in the contour plot.
 
 \section{Browsers}{
  The browser is called by \code{\link[utils]{browseURL}}, which
-in turn uses \code{\link[base]{options("browser")}}.  Exactly how this is handled
+in turn uses \code{options("browser")}.  Exactly how this is handled
 is OS dependent.
 }
 
 \section{Browsers/Mac}{
  On a Mac, the default browser is called by \code{/bin/sh/open}
 which in turn looks at which browser you have set in the system settings.  You can
-override your default for instance with
-\code{browser = "/usr/bin/open -a 'Google Chrome'"}.
+override your default with
+\code{browser = "/usr/bin/open -a 'Google Chrome'"} for example.
 Testing shows that on a Mac, Safari and Chrome perform correctly,
 but in Firefox the mouse cursor is slightly offset from the guides.  While it
-doesn't look quite right, it works correctly (the guides determine the slice displayed).
+doesn't look quite right, it works correctly (the guides determine which
+slice is displayed).
 }
 
 \section{Browsers/Other Systems}{
- No experience!
+  \code{exCon} has been tested on a Windows 7
+professional instance running in VirtualBox using Firefox and Chrome, and
+runs correctly (Firefox has the same mouse position issue as mentioned above).
 }
 
-\section{Performance}{
- In testing on a 4-year old MacBook Pro, a 4000 x 4000 matrix
-with 5 contour levels
-requires about 30 seconds to create the contours.  The resulting web page in
+\section{Performance Limits (YMMV)}{
+ On a 4-year old MacBook Pro, with 8 Gb
+RAM and an Intel Core i7 chip, a
+4000 x 4000 matrix with 5 contour levels
+requires about 30 seconds for R to create the contours.  The web page displayed
+by
 Chrome appears to be about 85 Mb in size and the guide movements lag the mouse
 movements quite a bit, but it is still usable.  Sometimes the page won't load.
-A 5000 x 5000 matrix causes Chrome to crash. Firefox will load the 4K x 4K
-matrix but performance is too sluggish.  YMMV.
+The files on disk are about 159 Mb. Firefox will load the 4K x 4K
+matrix but performance is too sluggish. On the same computer, a
+5000 x 5000 matrix with 5 contour levels
+	causes Chrome to crash.
 }
 \examples{
 require(jsonlite)
