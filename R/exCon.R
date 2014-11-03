@@ -39,11 +39,13 @@
 ##' connected point-to-point.  Thus a maximum in a slice may not correspond to 
 ##' a peak in the contour plot.
 ##' 
-##' @section Browsers: The browser is called by \code{\link[utils]{browseURL}}, which
+##' @section Browser Choice: The browser is called by
+##' \code{\link[utils]{browseURL}}, which
 ##' in turn uses \code{options("browser")}.  Exactly how this is handled
 ##' is OS dependent.
 ##'
-##' @section Browsers/Mac: On a Mac, the default browser is called by \code{/bin/sh/open}
+##' @section Browser Choice/Mac: On a Mac, the default browser is called
+##' by \code{/bin/sh/open}
 ##' which in turn looks at which browser you have set in the system settings.  You can
 ##' override your default with
 ##' \code{browser = "/usr/bin/open -a 'Google Chrome'"} for example.
@@ -52,21 +54,27 @@
 ##' doesn't look quite right, it works correctly (the guides determine which
 ##' slice is displayed).
 ##'
-##' @section Browsers/Other Systems:  \code{exCon} has been tested on a Windows 7
+##' @section Browser Choice/Other Systems:  \code{exCon} has been tested
+##' on a Windows 7
 ##' professional instance running in VirtualBox using Firefox and Chrome, and
 ##' runs correctly (Firefox has the same mouse position issue as mentioned above).
+##'
+##' @section Browser Choice & Performance:  You can check the performance of
+##' your browser at peacekeeper.futuremark.com  The most relevant score for
+##  exCon is the rendering category.  In limited testing, Chrome does the best.
 ##'
 ##' @section Performance Limits (YMMV): On a 4-year old MacBook Pro, with 8 Gb
 ##' RAM and an Intel Core i7 chip, a
 ##' 4000 x 4000 matrix with 5 contour levels 
 ##' requires about 30 seconds for R to create the contours.  The web page displayed
 ##' by
-##' Chrome appears to be about 85 Mb in size and the guide movements lag the mouse
+##' Chrome 38 appears to be about 85 Mb in size and the guide movements lag the mouse
 ##' movements quite a bit, but it is still usable.  Sometimes the page won't load.
-##' The files on disk are about 159 Mb. Firefox will load the 4K x 4K
+##' The files on disk are about 159 Mb. Firefox 32 will load the 4K x 4K
 ##' matrix but performance is too sluggish. On the same computer, a
 ##' 5000 x 5000 matrix with 5 contour levels 
-##'	causes Chrome to crash.
+##'	causes Chrome to crash.  Testing on a newer Mac with 16 Gb RAMM shows that
+##' the browser may be the limiting factor rather than the RAMM.
 ##' 
 ##' 
 ##' @name exCon
@@ -145,7 +153,8 @@ exCon <- function(M = NULL,
 	fd <- system.file("extdata", package = "exCon")
 	eCfiles <- c("eC.css", "eC_globals.js", "eC_controls.js", "eC_contours.js",
 	"eC_brushNguides.js", "eC_slices.js", "eC_main.js", "exCon.html")	
-	chk2 <- file.copy(paste(fd, eCfiles, sep = "/"), paste(td, eCfiles, sep = "/"))
+	chk2 <- file.copy(paste(fd, eCfiles, sep = "/"), paste(td, eCfiles, sep = "/"),
+		overwrite = TRUE)
 	if (!all(chk2)) stop("Set up of temporary directory failed")
 	setwd(td)
 

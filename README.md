@@ -32,6 +32,8 @@ library("exCon")
 * Extend guides into slice areas?
 * Make layout responsive to dimensions & aspect ratio of original data.
 * Color different contour levels & add scale.
+* Cosmetic: units like 1,800 can run into the slice area.
+* What can be done to improve performance with large data sets?  One possibility: hold updating of slices until mouse stops moving.
 
 #### Authors
 
