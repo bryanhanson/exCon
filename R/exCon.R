@@ -148,36 +148,45 @@ exCon <- function(M = NULL,
 
 	# Get the JavaScript modules & related files
 	
-	cd <- getwd()
-	td <- tempdir()
+	td <- tempfile("viewhtml")
+  dir.create(td)
 	fd <- system.file("extdata", package = "exCon")
 	eCfiles <- c("eC.css", "eC_globals.js", "eC_controls.js", "eC_contours.js",
 	"eC_brushNguides.js", "eC_slices.js", "eC_main.js", "exCon.html")	
-	chk2 <- file.copy(paste(fd, eCfiles, sep = "/"), paste(td, eCfiles, sep = "/"),
+	chk2 <- file.copy(from=file.path(fd, eCfiles), to=file.path(td, eCfiles),
 		overwrite = TRUE)
 	if (!all(chk2)) stop("Set up of temporary directory failed")
-	setwd(td)
 
-	js1 <- readLines(con = "eC_globals.js")
-	js2 <- readLines(con = "eC_controls.js")
-	js3 <- readLines(con = "eC_contours.js")
-	js4 <- readLines(con = "eC_brushNguides.js")
-	js5 <- readLines(con = "eC_slices.js")
-	js6 <- readLines(con = "eC_main.js")
+	js1 <- readLines(con = file.path(td,"eC_globals.js"))
+	js2 <- readLines(con = file.path(td,"eC_controls.js"))
+	js3 <- readLines(con = file.path(td,"eC_contours.js"))
+	js4 <- readLines(con = file.path(td,"eC_brushNguides.js"))
+	js5 <- readLines(con = file.path(td,"eC_slices.js"))
+	js6 <- readLines(con = file.path(td,"eC_main.js"))
 
 	# Now write
 	
 	writeLines(text = c(data1, data2, data3, data4,
 		js1, js2, js3, js4, js5, js6),
-		sep  = "\n", con = "exCon.js")
+		sep  = "\n", con = file.path(td,"exCon.js"))
 
 	# Open the file in a browser
 
-	pg <- "exCon.html"
-	if (!is.null(browser)) browseURL(pg, browser = browser)
-	if (is.null(browser)) browseURL(pg)
+	pg <-  file.path(td,"exCon.html")
+	if (!is.null(browser)) {
+    browseURL(pg, browser = browser)
+	} else {
+	  # open in RStudio if viewer is not null
+    # similar to htmltools::html_print
+	  viewer <- getOption("viewer")
+	  if (is.null(browser) && !is.null(viewer)) {
+      viewer(pg)
+	  } else {
+	    browserURL(pg)
+	  }
+	}
+  
 	message("The exCon web page is in the following temp directory which is deleted when you quit R: ")
 	message(td)
-	setwd(cd)
 	invisible()
 }
