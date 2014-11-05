@@ -24,8 +24,7 @@ var activateBrush = function() {
     // brushed = function() { // doesn't work
     // var brushed = function() { // doesn't work
     function brushed() { // Handles the response to brushing
-
-    	var extent = brush.extent() // reports in pixels
+    	var extent = brush.empty() ? [ [ brush.x().domain()[0],brush.y().domain()[0] ], [brush.x().domain()[1],brush.y().domain()[1] ] ] : brush.extent() // reports in pixels
     	var minX = extent[0][0]
     	var maxX = extent[1][0]
     	var minY = extent[0][1]
@@ -50,7 +49,7 @@ var activateBrush = function() {
         brushExtent = [xL, xU, 1-yU, 1-yL] // global variable
     	clearContour();
     	drawContour(xD, yD);
-    } // end of brushed
+    }   // end of brushed
 
 } // end of activateBrush
 
