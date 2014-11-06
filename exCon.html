@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<!-- exploreContour by Kristina Mulry & Bryan Hanson -->
+<!-- DePauw University, February 2014 -->
+<!-- simple web page to serve as the DOM -->
+
+<title> exploreContour</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="eC.css">
+
+<BODY>
+
+<div class = "inputData">
+<form name = "Show">
+row <input type = "text" name = "mouseRow" value = "0" size = "1">
+col <input type = "text" name = "mouseCol" value = "0" size = "1">
+x native <input type = "text" name = "mouseXnat" value = "0" size = "2">
+y native <input type = "text" name = "mouseYnat" value = "0" size = "2">
+x cursor <input type = "text" name = "mouseX" value = "0" size = "2">
+y cursor <input type = "text" name = "mouseY" value = "0" size = "2">
+</form>
+</div>
+
+<div id = "main", class = "BigSVG"> </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" charset="utf-8"></script>
+<script src = "exCon.js"> </script>
