@@ -11,12 +11,22 @@ exCon is an interactive tool to explore topographic-like data
 
 Bryan A. Hanson & Kristina R. Mulry, DePauw University, Greencastle Indiana USA
 
+Contributions much appreciated from:
+timelyportfolio
+
+###### Version: 0.1-2
+Date: 2014-11-06
+News:
+>> Merged pull request from timelyportofolio permitting the RStudio viewer to be used.  Also better handling of the temporary directory.
+>> Merged pull request from timelyportofolio to clear brush in a more standardized way.
+>> Updated documentation.
+>> Added .gitignore
+
 ###### Version: 0.1-1
 Date: 2014-10-30
 News:
 >> Added overwriting to the tempdir so different data sets could be examined
 in the same R session. 
-
 
 ###### Version: 0.1-0
 Date: 2014-10-29

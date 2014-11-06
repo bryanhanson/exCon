@@ -44,6 +44,9 @@
 ##' in turn uses \code{options("browser")}.  Exactly how this is handled
 ##' is OS dependent.
 ##'
+##' @section RStudio Viewer: If browser is \code{NULL}, you are using RStudio, and a viewer is specified, this will be called.  You can stop this by with \code{options(viewer = NULL)}.
+##'
+##'
 ##' @section Browser Choice/Mac: On a Mac, the default browser is called
 ##' by \code{/bin/sh/open}
 ##' which in turn looks at which browser you have set in the system settings.  You can
@@ -61,7 +64,7 @@
 ##'
 ##' @section Browser Choice & Performance:  You can check the performance of
 ##' your browser at peacekeeper.futuremark.com  The most relevant score for
-##  exCon is the rendering category.  In limited testing, Chrome does the best.
+##' exCon is the rendering category.  In limited testing, Chrome does the best.
 ##'
 ##' @section Performance Limits (YMMV): On a 4-year old MacBook Pro, with 8 Gb
 ##' RAM and an Intel Core i7 chip, a
@@ -149,7 +152,7 @@ exCon <- function(M = NULL,
 	# Get the JavaScript modules & related files
 	
 	td <- tempfile("viewhtml")
-  dir.create(td)
+	dir.create(td)
 	fd <- system.file("extdata", package = "exCon")
 	eCfiles <- c("eC.css", "eC_globals.js", "eC_controls.js", "eC_contours.js",
 	"eC_brushNguides.js", "eC_slices.js", "eC_main.js", "exCon.html")	
@@ -174,17 +177,17 @@ exCon <- function(M = NULL,
 
 	pg <-  file.path(td,"exCon.html")
 	if (!is.null(browser)) {
-    browseURL(pg, browser = browser)
-	} else {
-	  # open in RStudio if viewer is not null
-    # similar to htmltools::html_print
-	  viewer <- getOption("viewer")
-	  if (is.null(browser) && !is.null(viewer)) {
-      viewer(pg)
-	  } else {
-	    browserURL(pg)
-	  }
-	}
+	    browseURL(pg, browser = browser)
+		} else {
+		# open in RStudio if viewer is not null
+	    # similar to htmltools::html_print
+			viewer <- getOption("viewer")
+		  	if (is.null(browser) && !is.null(viewer)) {
+	      		viewer(pg)
+		  		} else {
+		    		browseURL(pg)
+		  			}
+		}
   
 	message("The exCon web page is in the following temp directory which is deleted when you quit R: ")
 	message(td)
