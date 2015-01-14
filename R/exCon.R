@@ -151,14 +151,15 @@ exCon <- function(M = NULL,
 
 	# Get the JavaScript modules & related files
 	
-	td <- tempfile("viewhtml")
-	dir.create(td)
+	# td <- tempfile("viewhtml")
+	# dir.create(td)
+	td <- tempdir()
 	fd <- system.file("extdata", package = "exCon")
 	eCfiles <- c("eC.css", "eC_globals.js", "eC_controls.js", "eC_contours.js",
 	"eC_brushNguides.js", "eC_slices.js", "eC_main.js", "exCon.html")	
 	chk2 <- file.copy(from=file.path(fd, eCfiles), to=file.path(td, eCfiles),
 		overwrite = TRUE)
-	if (!all(chk2)) stop("Set up of temporary directory failed")
+	if (!all(chk2)) stop("Copying to temporary directory failed")
 
 	js1 <- readLines(con = file.path(td,"eC_globals.js"))
 	js2 <- readLines(con = file.path(td,"eC_controls.js"))

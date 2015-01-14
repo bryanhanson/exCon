@@ -37,7 +37,7 @@ library("exCon")
 
 #### Authors
 
-`exCon` was developed by Kristina R. Mulry and Bryan A. Hanson starting in the Spring of 2014, at DePauw University.
+`exCon` was developed by Kristina R. Mulry and Bryan A. Hanson starting in the Spring of 2014, at DePauw University.  Contributions from others listed in the NEWS file.
 
 #### License Information
 
