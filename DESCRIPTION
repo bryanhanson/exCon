@@ -1,11 +1,11 @@
 Package: exCon
 Type: Package
 Title: Interactive Exploration of Contour Data
-Version: 0.1-3
-Date: 2015-01-13
+Version: 0.1-4
+Date: 2015-03-27
 Authors@R: c(person("Bryan", "Hanson", role = c("aut", "cre"), email =
     "hanson@depauw.edu"), person("Kristina", "Mulry", role = "ctb"))
-Description: exCon is an interactive tool to explore topographic-like data
+Description: An interactive tool to explore topographic-like data
     sets.  Such data sets take the form of a matrix in which the rows and
     columns provide location/frequency information, and the matrix elements
     contain altitude/response information.  Such data is found in cartography,
@@ -15,6 +15,8 @@ Description: exCon is an interactive tool to explore topographic-like data
 License: GPL-3
 Imports:
     jsonlite
+Suggests:
+    js
 URL: https://github.com/bryanhanson/exCon
 ByteCompile: TRUE
 BugReports: https://github.com/bryanhanson/exCon/issues

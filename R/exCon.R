@@ -21,6 +21,9 @@
 ##' necessary if you want to overide your system specified browser as understood by
 ##' \code{R}.  See below for further details.
 ##'
+##' @param minify Logical.  Shall the JavaScript be minified?  This improves
+##' performance
+##'
 ##' @return None; side effect is an interactive web page.  The temporary directory
 ##' containing the files that drive the web page is written to the console in case
 ##' you wish to use those files.  This directory is deleted when you quit R.
@@ -95,7 +98,7 @@ exCon <- function(M = NULL,
 	y = seq(0, 1, length.out = ncol(M)),
 	nlevels = 5,
 	levels = pretty(range(M, na.rm = TRUE), nlevels),
-	browser = NULL) {
+	browser = NULL, minify = TRUE) {
 
 	# Bryan A. Hanson, DePauw University, April 2014
 	# This is the R front end controlling everything
@@ -151,8 +154,6 @@ exCon <- function(M = NULL,
 
 	# Get the JavaScript modules & related files
 	
-	# td <- tempfile("viewhtml")
-	# dir.create(td)
 	td <- tempdir()
 	fd <- system.file("extdata", package = "exCon")
 	eCfiles <- c("eC.css", "eC_globals.js", "eC_controls.js", "eC_contours.js",
@@ -168,11 +169,27 @@ exCon <- function(M = NULL,
 	js5 <- readLines(con = file.path(td,"eC_slices.js"))
 	js6 <- readLines(con = file.path(td,"eC_main.js"))
 
+	# scopeFunHeader <- "(function() {"
+	# scopeFunTail <- "})();"
+
 	# Now write
+
+	# text = c(scopeFunHeader, data1, data2, data3, data4,
+		# js1, js2, js3, js4, js5, js6, scopeFunTail)
+
+	text = c(data1, data2, data3, data4,
+		js1, js2, js3, js4, js5, js6)
+
+	if (minify) {
+		if (requireNamespace("js", quietly = TRUE)) {
+			text <- js::uglify_optimize(text, unused = FALSE)
+			}
+		if (!requireNamespace("js", quietly = TRUE)) {
+			stop("You need install package js to minify the JavaScript code")
+			}
+		}
 	
-	writeLines(text = c(data1, data2, data3, data4,
-		js1, js2, js3, js4, js5, js6),
-		sep  = "\n", con = file.path(td,"exCon.js"))
+	writeLines(text, sep  = "\n", con = file.path(td,"exCon.js"))
 
 	# Open the file in a browser
 

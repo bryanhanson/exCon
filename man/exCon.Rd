@@ -6,7 +6,7 @@
 \usage{
 exCon(M = NULL, x = seq(0, 1, length.out = nrow(M)), y = seq(0, 1,
   length.out = ncol(M)), nlevels = 5, levels = pretty(range(M, na.rm =
-  TRUE), nlevels), browser = NULL)
+  TRUE), nlevels), browser = NULL, minify = TRUE)
 }
 \arguments{
 \item{M}{A matrix.}
@@ -26,6 +26,9 @@ compute the contours.}
 \item{browser}{Character.  Something that will make sense to your OS.  Only
 necessary if you want to overide your system specified browser as understood by
 \code{R}.  See below for further details.}
+
+\item{minify}{Logical.  Shall the JavaScript be minified?  This improves
+performance}
 }
 \value{
 None; side effect is an interactive web page.  The temporary directory
