@@ -6,10 +6,12 @@
 ##' @param M A matrix.
 ##'
 ##' @param x A vector of numeric values giving the locations of the grid defining
-##' the matrix.  Must have length \code{nrow(M)}.
+##' the matrix.  Must have length \code{nrow(M)}.  These values become the scale
+##' along the x axis.
 ##'
 ##' @param y A vector of numeric values giving the locations of the grid defining
-##' the matrix.  Must have length \code{ncol(M)}.
+##' the matrix.  Must have length \code{ncol(M)}. These values become the scale
+##' along the y axis.
 ##'
 ##' @param nlevels  Integer.  The number of contour levels desired.  Ignored if \code{levels}
 ##' is given.
@@ -50,7 +52,7 @@
 ##' @section RStudio Viewer: If browser is \code{NULL}, you are using RStudio, and a viewer is specified, this will be called.  You can stop this by with \code{options(viewer = NULL)}.
 ##'
 ##'
-##' @section Browser Choice/Mac: On a Mac, the default browser is called
+##' @section Browser Choice (Mac): On a Mac, the default browser is called
 ##' by \code{/bin/sh/open}
 ##' which in turn looks at which browser you have set in the system settings.  You can
 ##' override your default with
@@ -60,7 +62,7 @@
 ##' doesn't look quite right, it works correctly (the guides determine which
 ##' slice is displayed).
 ##'
-##' @section Browser Choice/Other Systems:  \code{exCon} has been tested
+##' @section Browser Choice (Other Systems):  \code{exCon} has been tested
 ##' on a Windows 7
 ##' professional instance running in VirtualBox using Firefox and Chrome, and
 ##' runs correctly (Firefox has the same mouse position issue as mentioned above).
@@ -79,8 +81,8 @@
 ##' The files on disk are about 159 Mb. Firefox 32 will load the 4K x 4K
 ##' matrix but performance is too sluggish. On the same computer, a
 ##' 5000 x 5000 matrix with 5 contour levels 
-##'	causes Chrome to crash.  Testing on a newer Mac with 16 Gb RAMM shows that
-##' the browser may be the limiting factor rather than the RAMM.
+##'	causes Chrome to crash.  Testing on a newer Mac with 16 Gb RAM shows that
+##' the browser may be the limiting factor rather than the RAM.
 ##' 
 ##' 
 ##' @name exCon
@@ -93,6 +95,14 @@
 ##' require(jsonlite)
 ##' exCon(M = volcano)
 ##'
+##' # This next example will label the axes with the actual values, relative to the
+##' # lower left corner (original data collected on 10 meter grid).  Giving
+##' # x and y affects only the scale, and the native values displayed at the top.
+##' 
+##'  exCon(M = volcano,
+##'  x = seq(from = 0, by = 10, length.out = nrow(volcano)),
+##'  y = seq(from = 0, by = 10, length.out = ncol(volcano)))
+##' 
 exCon <- function(M = NULL,
 	x = seq(0, 1, length.out = nrow(M)),
 	y = seq(0, 1, length.out = ncol(M)),
