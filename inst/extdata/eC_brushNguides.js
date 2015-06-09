@@ -75,8 +75,8 @@ var activateGuides = function() {
 		var getMouseXY = function() {
 				// get the mouse coordinates & report in terms of [0...1]
 				var mouse = d3.mouse(document.getElementById("CON"));
-				mX = mouse[0]; // in pixels
-				mY = mouse[1];
+				mX = mouse[0] - lPad; // in pixels
+				mY = mouse[1] - tPad;
 				if (mX < 0) {
 					mX = 0
 				}; // truncate low
