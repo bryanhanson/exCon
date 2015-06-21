@@ -30,7 +30,9 @@ necessary if you want to overide your system specified browser as understood by
 \code{R}.  See below for further details.}
 
 \item{minify}{Logical.  Shall the JavaScript be minified?  This improves
-performance}
+performance.  However, it requires package \code{js} which in turn requires
+package \code{V8}.  The latter is not available on all platforms.  Details
+may be available at \url{https://github.com/jeroenooms/v8}}
 }
 \value{
 None; side effect is an interactive web page.  The temporary directory
@@ -111,13 +113,16 @@ the browser may be the limiting factor rather than the RAM.
 }
 \examples{
 require(jsonlite)
-exCon(M = volcano)
+
+# minify is FALSE in the examples as not all platforms support the required pkgs (see above)
+
+exCon(M = volcano, minify = FALSE)
 
 # This next example will label the axes with the actual values, relative to the
 # lower left corner (original data collected on 10 meter grid).  Giving
 # x and y affects only the scale, and the native values displayed at the top.
 
- exCon(M = volcano,
+ exCon(M = volcano, minify = FALSE,
  x = seq(from = 0, by = 10, length.out = nrow(volcano)),
  y = seq(from = 0, by = 10, length.out = ncol(volcano)))
 }

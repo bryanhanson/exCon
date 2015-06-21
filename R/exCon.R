@@ -24,7 +24,9 @@
 ##' \code{R}.  See below for further details.
 ##'
 ##' @param minify Logical.  Shall the JavaScript be minified?  This improves
-##' performance
+##' performance.  However, it requires package \code{js} which in turn requires
+##' package \code{V8}.  The latter is not available on all platforms.  Details
+##' may be available at \url{https://github.com/jeroenooms/v8}
 ##'
 ##' @return None; side effect is an interactive web page.  The temporary directory
 ##' containing the files that drive the web page is written to the console in case
@@ -93,13 +95,16 @@
 ##'
 ##' @examples
 ##' require(jsonlite)
-##' exCon(M = volcano)
+##'
+##' # minify is FALSE in the examples as not all platforms support the required pkgs (see above)
+##'
+##' exCon(M = volcano, minify = FALSE)
 ##'
 ##' # This next example will label the axes with the actual values, relative to the
 ##' # lower left corner (original data collected on 10 meter grid).  Giving
 ##' # x and y affects only the scale, and the native values displayed at the top.
 ##' 
-##'  exCon(M = volcano,
+##'  exCon(M = volcano, minify = FALSE,
 ##'  x = seq(from = 0, by = 10, length.out = nrow(volcano)),
 ##'  y = seq(from = 0, by = 10, length.out = ncol(volcano)))
 ##' 
@@ -195,7 +200,7 @@ exCon <- function(M = NULL,
 			text <- js::uglify_optimize(text, unused = FALSE)
 			}
 		if (!requireNamespace("js", quietly = TRUE)) {
-			stop("You need install package js to minify the JavaScript code")
+			stop("You need to install package js to minify the JavaScript code.  See ?exCon for details.")
 			}
 		}
 	
