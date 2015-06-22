@@ -14,8 +14,9 @@ Bryan A. Hanson & Kristina R. Mulry, DePauw University, Greencastle Indiana USA
 Contributions much appreciated from:
 timelyportfolio
 
-Changes in version: 0.1.7 2015-06-08
-     + Examples and documentation for exCon now take into account that package js, needed to minify, is not universally available.  Thanks to Prof. Ripley for pointing this out.
+Changes in version: 0.1.7 2015-06-22
+     + Added function exCon2, which does not display the slices.
+     + Examples and documentation now take into account that package js, needed to minify, is not universally available.  Thanks to Prof. Ripley for pointing this out.
      + Format of NEWS file changed to work better with the news function.
 
 Changes in version: 0.1.6 2015-06-08

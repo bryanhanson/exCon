@@ -2,6 +2,7 @@
 % Please edit documentation in R/exCon.R
 \name{exCon}
 \alias{exCon}
+\alias{exCon2}
 \title{Explore Contour Data Interactively}
 \usage{
 exCon(M = NULL, x = seq(0, 1, length.out = nrow(M)), y = seq(0, 1,
@@ -40,8 +41,10 @@ containing the files that drive the web page is written to the console in case
 you wish to use those files.  This directory is deleted when you quit R.
 }
 \description{
-This function computes contour lines from matrix data and displays them
-in an interactive web page using the d3 javascript library.
+These functions compute contour lines from matrix data and display them
+in an interactive web page using the d3 javascript library. \code{exCon}
+displays slices along the x and y directions.  \code{exCon2} does not
+display the slices and is faster.
 }
 \section{Details}{
  The computation of the contour lines is handled by
@@ -56,7 +59,8 @@ counter-clockwise rotation of the conventional textual layout."
 
 \section{Interpretation}{
   The contour lines are an interpolation of the data
-in the matrix.  The slices are the actual values in the matrix row or column
+in the matrix.  In \code{exCon}, the slices are the actual values in the matrix
+row or column
 connected point-to-point.  Thus a maximum in a slice may not correspond to
 a peak in the contour plot.
 }
@@ -79,9 +83,8 @@ which in turn looks at which browser you have set in the system settings.  You c
 override your default with
 \code{browser = "/usr/bin/open -a 'Google Chrome'"} for example.
 Testing shows that on a Mac, Safari and Chrome perform correctly,
-but in Firefox the mouse cursor is slightly offset from the guides.  While it
-doesn't look quite right, it works correctly (the guides determine which
-slice is displayed).
+but in Firefox the mouse cursor is slightly offset from the guides.  However,
+the slices chosen and the values displayed are correct.
 }
 
 \section{Browser Choice (Other Systems)}{
@@ -118,6 +121,8 @@ require(jsonlite)
 
 exCon(M = volcano, minify = FALSE)
 
+exCon2(M = volcano, minify = FALSE) # no slices
+
 # This next example will label the axes with the actual values, relative to the
 # lower left corner (original data collected on 10 meter grid).  Giving
 # x and y affects only the scale, and the native values displayed at the top.
@@ -126,5 +131,6 @@ exCon(M = volcano, minify = FALSE)
  x = seq(from = 0, by = 10, length.out = nrow(volcano)),
  y = seq(from = 0, by = 10, length.out = ncol(volcano)))
 }
+\keyword{interactive}
 \keyword{plot}
 

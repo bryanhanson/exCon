@@ -1,7 +1,9 @@
 ##' Explore Contour Data Interactively
 ##'
-##' This function computes contour lines from matrix data and displays them
-##' in an interactive web page using the d3 javascript library.
+##' These functions compute contour lines from matrix data and display them
+##' in an interactive web page using the d3 javascript library. \code{exCon}
+##' displays slices along the x and y directions.  \code{exCon2} does not
+##' display the slices and is faster.
 ##' 
 ##' @param M A matrix.
 ##'
@@ -28,9 +30,10 @@
 ##' package \code{V8}.  The latter is not available on all platforms.  Details
 ##' may be available at \url{https://github.com/jeroenooms/v8}
 ##'
-##' @return None; side effect is an interactive web page.  The temporary directory
-##' containing the files that drive the web page is written to the console in case
-##' you wish to use those files.  This directory is deleted when you quit R.
+##' @return The path to the temporary directory containing the web page files.
+##' The side effect is an interactive web page.  The temporary directory
+##' is deleted when you quit R, but you can use the return value to
+##' save the files in a different location.
 ##'
 ##' @section Details: The computation of the contour lines is handled by
 ##' \code{\link[grDevices]{contourLines}}.  The result here, however, is transposed so that the
@@ -42,7 +45,8 @@
 ##' counter-clockwise rotation of the conventional textual layout."
 ##' 
 ##' @section Interpretation:  The contour lines are an interpolation of the data
-##' in the matrix.  The slices are the actual values in the matrix row or column
+##' in the matrix.  In \code{exCon}, the slices are the actual values in the matrix
+##' row or column
 ##' connected point-to-point.  Thus a maximum in a slice may not correspond to 
 ##' a peak in the contour plot.
 ##' 
@@ -60,9 +64,8 @@
 ##' override your default with
 ##' \code{browser = "/usr/bin/open -a 'Google Chrome'"} for example.
 ##' Testing shows that on a Mac, Safari and Chrome perform correctly,
-##' but in Firefox the mouse cursor is slightly offset from the guides.  While it
-##' doesn't look quite right, it works correctly (the guides determine which
-##' slice is displayed).
+##' but in Firefox the mouse cursor is slightly offset from the guides.  However,
+##' the slices chosen and the values displayed are correct.
 ##'
 ##' @section Browser Choice (Other Systems):  \code{exCon} has been tested
 ##' on a Windows 7
@@ -88,10 +91,11 @@
 ##' 
 ##' 
 ##' @name exCon
+##' @aliases exCon2 exCon
 ##' @rdname exCon
-##' @export
+##' @export exCon exCon2
 ##' @import jsonlite
-##' @keywords plot
+##' @keywords plot interactive
 ##'
 ##' @examples
 ##' require(jsonlite)
@@ -99,6 +103,8 @@
 ##' # minify is FALSE in the examples as not all platforms support the required pkgs (see above)
 ##'
 ##' exCon(M = volcano, minify = FALSE)
+##'
+##' exCon2(M = volcano, minify = FALSE) # no slices
 ##'
 ##' # This next example will label the axes with the actual values, relative to the
 ##' # lower left corner (original data collected on 10 meter grid).  Giving
@@ -140,11 +146,6 @@ exCon <- function(M = NULL,
 		x = x, y = y)
 
 	# Get the contour lines into JSON format
-
-	# This is the manual approach, from Yihui Xie's blog
-
-	# This is the automated approach which brings along extra info
-	# but it is ignored since it is never requested.
 
 	CL <- toJSON(CL)
 
@@ -222,7 +223,121 @@ exCon <- function(M = NULL,
 		  			}
 		}
   
-	message("The exCon web page is in the following temp directory which is deleted when you quit R: ")
-	message(td)
-	invisible()
+	# message("The exCon web page is in the following temp directory which is deleted when you quit R: ")
+	# message(td)
+	invisible(td)
+}
+
+
+
+exCon2 <- function(M = NULL,
+	x = seq(0, 1, length.out = nrow(M)),
+	y = seq(0, 1, length.out = ncol(M)),
+	nlevels = 5,
+	levels = pretty(range(M, na.rm = TRUE), nlevels),
+	browser = NULL, minify = TRUE) {
+
+	# Bryan A. Hanson, DePauw University, June 2014
+	# This is the R front end controlling everything
+	# The html and js files called indirectly written by
+	# Kristina Mulry and Bryan A. Hanson
+
+	if (is.null(M)) stop("You must provide a matrix M")
+	if (!is.matrix(M)) stop("M must be a matrix")
+
+	# M is the raw, topographic data matrix:
+	# think of it as altitudes on an x,y grid
+
+	# Major steps
+	# 1. Convert M to contour lines (CL)
+	# 2. Read in the existing js, then pre-pend
+	#    M and CL to to it and write it back out
+	# 3. Call a browser on the html to open it automatically
+
+	# Compute contour lines
+	# (Eventually need to supply nlevels & levels,
+	# Also a name for the data set)
+	dimnames(M) <- list(rep("x", nrow(M)), rep("y", ncol(M)))
+	CL <- contourLines(z = M, nlevels = nlevels, levels = levels,
+		x = x, y = y)
+
+	# Get the contour lines into JSON format
+
+	CL <- toJSON(CL)
+
+	# Get M into JSON format
+	# [ [row1...], [row2...], [lastRow...] ]
+
+	M <- toJSON(t(M))
+
+	# We need the first and last values of x and y
+	# to be the xD and yD (the domains)
+	# These are in the units of whatever is supplied (native)
+
+	DX <- toJSON(c(x[1], x[length(x)]))
+	DY <- toJSON(c(y[1], y[length(y)]))
+
+	# Prepare the data
+	
+	data1 <- paste("var CL = ", CL, sep = "")
+	data2 <- paste("var M = ", M, sep = "")
+	data3 <- paste("var Dx = ", DX, sep = "")
+	data4 <- paste("var Dy = ", DY, sep = "")
+
+	# Get the JavaScript modules & related files
+	
+	td <- tempdir()
+	fd <- system.file("extdata", package = "exCon")
+	eCfiles <- c("eC.css", "eC2_globals.js", "eC2_contours.js",
+	"eC2_brushNguides.js", "eC2_main.js", "exCon2.html")	
+	chk2 <- file.copy(from=file.path(fd, eCfiles), to=file.path(td, eCfiles),
+		overwrite = TRUE)
+	if (!all(chk2)) stop("Copying to temporary directory failed")
+
+	js1 <- readLines(con = file.path(td,"eC2_globals.js"))
+	js2 <- readLines(con = file.path(td,"eC2_contours.js"))
+	js3 <- readLines(con = file.path(td,"eC2_brushNguides.js"))
+	js4 <- readLines(con = file.path(td,"eC2_main.js"))
+
+	# scopeFunHeader <- "(function() {"
+	# scopeFunTail <- "})();"
+
+	# Now write
+
+	# text = c(scopeFunHeader, data1, data2, data3, data4,
+		# js1, js2, js3, js4, scopeFunTail)
+
+	text = c(data1, data2, data3, data4,
+		js1, js2, js3, js4)
+
+	if (minify) {
+		if (requireNamespace("js", quietly = TRUE)) {
+			text <- js::uglify_optimize(text, unused = FALSE)
+			}
+		if (!requireNamespace("js", quietly = TRUE)) {
+			stop("You need to install package js to minify the JavaScript code.  See ?exCon for details.")
+			}
+		}
+	
+	writeLines(text, sep  = "\n", con = file.path(td,"exCon2.js"))
+
+	# Open the file in a browser
+
+	pg <-  file.path(td,"exCon2.html")
+	if (!is.null(browser)) {
+	    browseURL(pg, browser = browser)
+		} else {
+		# open in RStudio if viewer is not null
+	    # similar to htmltools::html_print
+			viewer <- getOption("viewer")
+		  	if (is.null(browser) && !is.null(viewer)) {
+	      		viewer(pg)
+		  		} else {
+		    		browseURL(pg)
+		  			}
+		}
+  
+	# message("The exCon2 web page is in the following temp directory which is deleted when you quit R: ")
+	# message(td)
+	invisible(td)
 }
