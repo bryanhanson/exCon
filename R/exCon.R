@@ -71,6 +71,7 @@
 ##' on a Windows 7
 ##' professional instance running in VirtualBox using Firefox and Chrome, and
 ##' runs correctly (Firefox has the same mouse position issue as mentioned above).
+##' It runs similarly on Window 8.
 ##'
 ##' @section Browser Choice & Performance:  You can check the performance of
 ##' your browser at peacekeeper.futuremark.com  The most relevant score for
@@ -78,18 +79,11 @@
 ##'
 ##' @section Performance Limits (YMMV): On a 4-year old MacBook Pro, with 8 Gb
 ##' RAM and an Intel Core i7 chip, a
-##' 4000 x 4000 matrix with 5 contour levels 
-##' requires about 30 seconds for R to create the contours.  The web page displayed
-##' by
-##' Chrome 38 appears to be about 85 Mb in size and the guide movements lag the mouse
-##' movements quite a bit, but it is still usable.  Sometimes the page won't load.
-##' The files on disk are about 159 Mb. Firefox 32 will load the 4K x 4K
-##' matrix but performance is too sluggish. On the same computer, a
-##' 5000 x 5000 matrix with 5 contour levels 
-##'	causes Chrome to crash.  Testing on a newer Mac with 16 Gb RAM shows that
-##' the browser may be the limiting factor rather than the RAM.
-##' 
-##' 
+##' 1500 x 1500 matrix with 1 contour level 
+##' requires about 30 seconds for R to render the web page using Chrome, Safari
+##' or Firefox. A 2K x 2K matrix appears to be too large to handle.
+##' Approximately the same result is obtained using Windows 8 and Chrome.
+##'
 ##' @name exCon
 ##' @aliases exCon2 exCon
 ##' @rdname exCon
@@ -185,8 +179,8 @@ exCon <- function(M = NULL,
 	js5 <- readLines(con = file.path(td,"eC_slices.js"))
 	js6 <- readLines(con = file.path(td,"eC_main.js"))
 
-	# scopeFunHeader <- "(function() {"
-	# scopeFunTail <- "})();"
+	scopeFunHeader <- "(function() {"
+	scopeFunTail <- "})();"
 
 	# Now write
 
@@ -299,16 +293,16 @@ exCon2 <- function(M = NULL,
 	js3 <- readLines(con = file.path(td,"eC2_brushNguides.js"))
 	js4 <- readLines(con = file.path(td,"eC2_main.js"))
 
-	# scopeFunHeader <- "(function() {"
-	# scopeFunTail <- "})();"
+	scopeFunHeader <- "(function() {"
+	scopeFunTail <- "})();"
 
 	# Now write
 
-	# text = c(scopeFunHeader, data1, data2, data3, data4,
-		# js1, js2, js3, js4, scopeFunTail)
+	text = c(scopeFunHeader, data1, data2, data3, data4,
+		js1, js2, js3, js4, scopeFunTail)
 
-	text = c(data1, data2, data3, data4,
-		js1, js2, js3, js4)
+	# text = c(data1, data2, data3, data4,
+		# js1, js2, js3, js4)
 
 	if (minify) {
 		if (requireNamespace("js", quietly = TRUE)) {

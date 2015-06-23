@@ -36,9 +36,10 @@ package \code{V8}.  The latter is not available on all platforms.  Details
 may be available at \url{https://github.com/jeroenooms/v8}}
 }
 \value{
-None; side effect is an interactive web page.  The temporary directory
-containing the files that drive the web page is written to the console in case
-you wish to use those files.  This directory is deleted when you quit R.
+The path to the temporary directory containing the web page files.
+The side effect is an interactive web page.  The temporary directory
+is deleted when you quit R, but you can use the return value to
+save the files in a different location.
 }
 \description{
 These functions compute contour lines from matrix data and display them
@@ -92,6 +93,7 @@ the slices chosen and the values displayed are correct.
 on a Windows 7
 professional instance running in VirtualBox using Firefox and Chrome, and
 runs correctly (Firefox has the same mouse position issue as mentioned above).
+It runs similarly on Window 8.
 }
 
 \section{Browser Choice & Performance}{
@@ -103,16 +105,10 @@ exCon is the rendering category.  In limited testing, Chrome does the best.
 \section{Performance Limits (YMMV)}{
  On a 4-year old MacBook Pro, with 8 Gb
 RAM and an Intel Core i7 chip, a
-4000 x 4000 matrix with 5 contour levels
-requires about 30 seconds for R to create the contours.  The web page displayed
-by
-Chrome 38 appears to be about 85 Mb in size and the guide movements lag the mouse
-movements quite a bit, but it is still usable.  Sometimes the page won't load.
-The files on disk are about 159 Mb. Firefox 32 will load the 4K x 4K
-matrix but performance is too sluggish. On the same computer, a
-5000 x 5000 matrix with 5 contour levels
-	causes Chrome to crash.  Testing on a newer Mac with 16 Gb RAM shows that
-the browser may be the limiting factor rather than the RAM.
+1500 x 1500 matrix with 1 contour level
+requires about 30 seconds for R to render the web page using Chrome, Safari
+or Firefox. A 2K x 2K matrix appears to be too large to handle.
+Approximately the same result is obtained using Windows 8 and Chrome.
 }
 \examples{
 require(jsonlite)
