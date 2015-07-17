@@ -3,3 +3,5 @@
 export(exCon)
 export(exCon2)
 import(jsonlite)
+importFrom(grDevices,contourLines)
+importFrom(utils,browseURL)

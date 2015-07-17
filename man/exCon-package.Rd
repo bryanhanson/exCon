@@ -14,7 +14,7 @@ contain altitude/response information.  Such data is found in cartography,
 2D spectroscopy and chemometrics.  The functions in this package create
 interactive web pages showing the contoured data, possibly with
 slices from the original matrix parallel to each dimension. The interactive
-behavior is created using the D3.js JavaScript library by Mike Bostock.
+behavior is created using the D3.js 'JavaScript' library by Mike Bostock.
 }
 \author{
 Bryan A. Hanson & Kristina R. Multry

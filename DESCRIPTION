@@ -1,8 +1,8 @@
 Package: exCon
 Type: Package
 Title: Interactive Exploration of Contour Data
-Version: 0.1.10
-Date: 2015-
+Version: 0.1.12
+Date: 2015-07-16
 Authors@R: c(person("Bryan", "Hanson", role = c("aut", "cre"), email =
     "hanson@depauw.edu"), person("Kristina", "Mulry", role = "ctb"))
 Description: Interactive tools to explore topographic-like data
@@ -14,10 +14,8 @@ Description: Interactive tools to explore topographic-like data
     slices from the original matrix parallel to each dimension. The interactive
     behavior is created using the D3.js 'JavaScript' library by Mike Bostock.
 License: GPL-3
-Imports:
-    jsonlite
-Suggests:
-    js
+Imports: jsonlite, grDevices, utils
+Suggests: js
 URL: https://github.com/bryanhanson/exCon
 ByteCompile: TRUE
 BugReports: https://github.com/bryanhanson/exCon/issues

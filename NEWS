@@ -8,8 +8,9 @@ Bryan A. Hanson & Kristina R. Mulry, DePauw University, Greencastle Indiana USA
 Contributions much appreciated from:
 timelyportfolio
 
-Changes in version: 0.1.10 2015-
+Changes in version: 0.1.12 2015-07-16
      + JavaScript in description is now single quoted, requested by CRAN for next release.
+     + Updated for new namespace polices for R 3.3 devel.
 
 Changes in version: 0.1.9 2015-06-23
      + Edited description as requested by CRAN.

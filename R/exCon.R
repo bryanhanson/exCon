@@ -89,6 +89,8 @@
 ##' @rdname exCon
 ##' @export exCon exCon2
 ##' @import jsonlite
+##' @importFrom utils browseURL
+##' @importFrom grDevices contourLines
 ##' @keywords plot interactive
 ##'
 ##' @examples
