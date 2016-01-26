@@ -94,6 +94,7 @@
 ##' @keywords plot interactive
 ##'
 ##' @examples
+##' if (interactive()) {
 ##' require(jsonlite)
 ##'
 ##' # minify is FALSE in the examples as not all platforms support the required pkgs (see above)
@@ -109,7 +110,8 @@
 ##'  exCon(M = volcano, minify = FALSE,
 ##'  x = seq(from = 0, by = 10, length.out = nrow(volcano)),
 ##'  y = seq(from = 0, by = 10, length.out = ncol(volcano)))
-##' 
+##' }
+##'
 exCon <- function(M = NULL,
 	x = seq(0, 1, length.out = nrow(M)),
 	y = seq(0, 1, length.out = ncol(M)),

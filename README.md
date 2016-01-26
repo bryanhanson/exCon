@@ -14,10 +14,10 @@ parallel to each dimension. The page is written in `d3/javascript`.
 ````r
 install.packages("devtools")
 library("devtools")
-install_github(repo = "bryanhanson/exCon", ref = "master")
+install_github(repo = "bryanhanson/exCon@master")
 library("exCon")
 ````
-If you use `ref = "some_other_branch"` you can get other branches that might be available.  They may or may not pass CRAN checks and thus may not install automatically using the method above.  Check the NEWS file to see what's up.
+If you use `@some_other_branch` you can get other branches that might be available.  They may or may not pass CRAN checks and thus may not install automatically using the method above.  Check the NEWS file to see what's up.
 
 #### Installation from CRAN using R:
 
