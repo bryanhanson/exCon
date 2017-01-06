@@ -7,7 +7,7 @@
 // Many modify or use the key global variables xD, yD, xF, yF
 
 drawOutlines(); // Appends rectangles outlining the areas we'll be using.
-drawMap(); // Appends an svg:path object (the contour lines)
+//drawMap(); // Appends an svg:path object (the contour lines)
 // and draws them in the map region.
 
 // On first run, draw the full domain in the contour area:

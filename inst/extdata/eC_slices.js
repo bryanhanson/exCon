@@ -104,7 +104,7 @@ var drawXslice = function(row) {
 			});
 		}
 
-		var xscl = d3.scale.linear()
+		var xscl = d3.scaleLinear()
 			.domain(d3.extent(xy, function(d) {
 				return d.x;
 			})) //use just the x part
@@ -117,11 +117,11 @@ var drawXslice = function(row) {
 			return d3.max(d);
 		});
 
-		var yscl = d3.scale.linear()
+		var yscl = d3.scaleLinear()
 			.domain([minM, ((maxM - minM) * yF + minM)])
 			.range([xslHeight - 5, 5]) // keeps line from touching outline
 
-		var slice = d3.svg.line()
+		var slice = d3.line()
 			.x(function(d) {
 				return xscl(d.x);
 			}) // apply the x scale to the x data
@@ -252,18 +252,18 @@ var drawYslice = function(col) {
 			return d3.max(d);
 		});
 
-		var xscl = d3.scale.linear()
+		var xscl = d3.scaleLinear()
 			.domain([minM, ((maxM - minM) * xF + minM)])
 			// range is set so the top of the peaks point toward the contour area
 			.range([yslWidth - 5, 5])
 
-		var yscl = d3.scale.linear()
+		var yscl = d3.scaleLinear()
 			.domain(d3.extent(xy, function(d) {
 				return d.y;
 			}))
 			.range([yslHeight + tPad, tPad])
 
-		var slice = d3.svg.line()
+		var slice = d3.line()
 			.x(function(d) {
 				return xscl(d.x);
 			})

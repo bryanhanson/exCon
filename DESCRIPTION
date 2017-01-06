@@ -1,8 +1,8 @@
 Package: exCon
 Type: Package
 Title: Interactive Exploration of Contour Data
-Version: 0.1.14
-Date: 2016-01-26
+Version: 0.1.21
+Date: 2016-12-30
 Authors@R: c(person("Bryan", "Hanson", role = c("aut", "cre"), email =
     "hanson@depauw.edu"), person("Kristina", "Mulry", role = "ctb"))
 Description: Interactive tools to explore topographic-like data

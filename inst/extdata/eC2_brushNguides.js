@@ -8,10 +8,10 @@ var activateBrush = function() {
 
 		// IMPORTANT: xD & yD are global variables
 
-		var brush = d3.svg.brush()
+		var brush = d3.brush()
 			// Defines the brush, and calls the relevant functions
-			.x(d3.scale.identity().domain([(lPad + conWidth + gap), (lPad + conWidth + gap + mapWidth)]))
-			.y(d3.scale.identity().domain([(tPad), (tPad + mapHeight)]))
+			.x(d3.scaleIdentity().domain([(lPad + conWidth + gap), (lPad + conWidth + gap + mapWidth)]))
+			.y(d3.scaleIdentity().domain([(tPad), (tPad + mapHeight)]))
 			.on("brushend", brushed)
 
 		svg.append("svg") // Appends the svg to include the brush
@@ -137,7 +137,7 @@ var activateGuides = function() {
 				d3.selectAll(".cursorGuide") // remove previous lines
 					.remove();
 
-				var line = d3.svg.line()
+				var line = d3.line()
 					.x(function(d) {
 						return d.x;
 					})
