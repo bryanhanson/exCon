@@ -18,8 +18,6 @@ var activateBrush = function() {
 			.attr("class", "brush")
 			.call(brush)
 
-		// brushed = function() { // doesn't work
-		// var brushed = function() { // doesn't work
 		function brushed() { // Handles the response to brushing
 				var extent = brush.empty() ? [
 						[brush.x().domain()[0], brush.y().domain()[0]],

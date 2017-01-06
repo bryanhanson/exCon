@@ -69,25 +69,21 @@ var drawOutlines = function() {
 		// 	       fill:'white'});
 
 		svg.append('rect') // outline contour area
-			.attr({
-				x: lPad,
-				y: tPad,
-				width: conWidth,
-				height: conHeight,
-				stroke: 'black',
-				'stroke-width': 1.5,
-				fill: 'white'
-			});
+			.attr("x", lPad)
+			.attr("y", tPad)
+			.attr("width", conWidth)
+			.attr("height", conHeight)
+			.attr("stroke", 'black')
+			.attr('stroke-width', 1.5)
+			.attr("fill", "white")
 
 		svg.append('rect') // outline map area
-			.attr({
-				x: lPad + conWidth + gap,
-				y: tPad,
-				width: mapWidth,
-				height: mapHeight,
-				stroke: 'black',
-				'stroke-width': 1.5,
-				fill: 'white'
-			});
+      .attr("x", lPad + conWidth + gap)
+			.attr("y", tPad)
+			.attr("width", mapWidth)
+			.attr("height", mapHeight)
+			.attr("stroke", 'black')
+			.attr('stroke-width', 1.5)
+			.attr("fill", "white")
 
 	} // end of drawOutlines

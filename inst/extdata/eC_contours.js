@@ -20,14 +20,12 @@ var drawContour = function(xD, yD) { // draw the contour map
 				return yContour(d.y);
 			});
 		var contour = svg.append("svg")
-			.attr({
-				x: lPad,
-				y: tPad,
-				width: conWidth,
-				height: conHeight,
-				"class": "contour",
-				"id": "CON"
-			})
+			.attr("x", lPad)
+			.attr("y", tPad)
+			.attr("width", conWidth)
+			.attr("height", conHeight)
+			.attr("class", "contour")
+			.attr("id", "CON")
 			.selectAll("path")
 			.data(CL.map(function(d) {
 				return d3.range(d.x.length).map(function(i) {
@@ -98,11 +96,9 @@ var drawMap = function() { // draw the navigation map in the map space
 				return yMap(d.y);
 			});
 		var map = svg.append("svg")
-			.attr({
-				x: lPad + conWidth + gap,
-				y: tPad + conHeight + gap,
-				"class": "map"
-			})
+			.attr("x", lPad + conWidth + gap)
+			.attr("y", tPad + conHeight + gap)
+			.attr("class", "map")
 			.selectAll("path")
 			.data(CL.map(function(d) {
 				return d3.range(d.x.length).map(function(i) {

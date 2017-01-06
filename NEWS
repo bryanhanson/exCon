@@ -8,6 +8,10 @@ Bryan A. Hanson & Kristina R. Mulry, DePauw University, Greencastle Indiana USA
 Contributions much appreciated from:
 timelyportfolio
 
+Changes in version: 0.2.???
+     + Updated for d3 version 4.
+     + Code clean up.
+
 Changes in version: 0.1.14 2016-01-26
      + Changed examples to check for if(interactive()).
 
