@@ -12,6 +12,8 @@ var activateBrush = function() {
 
 			var br, coords, minX, maxX, minY, maxY, x0, x1, y0, y1, xL, xU, yL, yU, spanX, spanY
 
+			if (!d3.event.selection) return; // handles single click to clear brush
+
 			br = document.getElementById("BRUSH")
 			coords = d3.brushSelection(br)
 			// In d3 v4 the coordinates returned are screen pixels
@@ -61,6 +63,8 @@ var activateBrush = function() {
 
 var resetBrush = function() {
 	// reset global variables
+	// br = document.getElementById("BRUSH")
+	// br.call(brush.move, null)
 	brushExtent = [0, 1, 0, 1]
 	xD = Dx;
 	yD = Dy;
