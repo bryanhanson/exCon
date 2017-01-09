@@ -37,8 +37,6 @@ var getXsliceXvalues = function() {
 
 		var lIndex = getXsliceLimits()[0];
 		var rIndex = getXsliceLimits()[1];
-		// console.log(lIndex)
-		// console.log(rIndex)
 		var nc = arraySize(M)[1];
 		var xbase = d3.range(1, nc + 1);
 		var xdata = xbase.slice(lIndex, rIndex + 1);
@@ -52,7 +50,6 @@ var getXsliceYvalues = function(row) {
 		// This function creates the y values needed for the x slice
 		// See getXsliceLimits for logic & comments
 		var ybase = M[row]; // the y values in the row
-		console.log(ybase)
 		var lIndex = getXsliceLimits()[0];
 		var rIndex = getXsliceLimits()[1];
 		var ydata = ybase.slice(lIndex, rIndex + 1);

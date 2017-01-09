@@ -48,7 +48,6 @@ var drawXaxis = function(xScale) {
 	d3.select("#X_axis").remove(); // remove existing axis
 	var xAxis = d3.axisBottom()
 		.scale(xScale);
-		// .orient("bottom");
 
 	svg.append("g")
 		.attr("id", "X_axis")
@@ -65,7 +64,6 @@ var drawYaxis = function(yScale) {
 	d3.select("#Y_axis").remove();
 	var yAxis = d3.axisRight()
 		.scale(yScale);
-		// .orient("right");
 
 	svg.append("g")
 		.attr("id", "Y_axis")
@@ -78,7 +76,10 @@ var drawYaxis = function(yScale) {
 
 
 var clearContour = function() {
-	d3.select("#CON").remove();
+	var tmp = d3.select("#CON");
+	console.log(tmp)
+	tmp.remove();
+	// d3.select("#CON").remove();
 }
 
 var drawMap = function() { // draw the navigation map in the map space

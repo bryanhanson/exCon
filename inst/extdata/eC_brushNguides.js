@@ -9,9 +9,9 @@ var activateBrush = function() {
 
 		function brushed() { // Handles the response to brushing
 
-			var br, coords, minX, maxX, minY, maxY, x0, x1, y0, y1, xL, xU, yL, yU, spanX, spanY
-
 			if (!d3.event.selection) return; // handles single click to clear brush
+
+  		var br, coords, minX, maxX, minY, maxY, x0, x1, y0, y1, xL, xU, yL, yU, spanX, spanY
 
 			br = document.getElementById("BRUSH")
 			coords = d3.brushSelection(br)
@@ -21,7 +21,7 @@ var activateBrush = function() {
 			minY = coords[0][1]
 			maxY = coords[1][1]
 			x0 = lPad + conWidth + gap // dim of map region
-			y0 = tPad
+			y0 = tPad + conHeight + gap
 			x1 = x0 + mapWidth
 			y1 = y0 + mapHeight
 			xL = ((minX - x0) / (x1 - x0)) // as a frac of map region
@@ -62,9 +62,7 @@ var activateBrush = function() {
 
 var resetBrush = function() {
 	// reset global variables
-	// br = document.getElementById("BRUSH")
-	// br.call(brush.move, null)
-	brushExtent = [0, 1, 0, 1]
+	brushExtent = [0, 1, 0, 1];
 	xD = Dx;
 	yD = Dy;
 	clearContour()

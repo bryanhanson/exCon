@@ -39,7 +39,7 @@ var svg = d3.select('#main')
 // Domains are in native units, as supplied by the user
 // Defaults via exCon.R are [0,1] unless user provides others
 
-// xD & yD are the brushing coordinates always on [0,1] ????
+// xD & yD are the brushing fractional coordinates always on [0,1]?
 
 var xD = Dx,
 	  yD = Dy;
