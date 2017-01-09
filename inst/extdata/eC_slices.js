@@ -52,6 +52,7 @@ var getXsliceYvalues = function(row) {
 		// This function creates the y values needed for the x slice
 		// See getXsliceLimits for logic & comments
 		var ybase = M[row]; // the y values in the row
+		console.log(ybase)
 		var lIndex = getXsliceLimits()[0];
 		var rIndex = getXsliceLimits()[1];
 		var ydata = ybase.slice(lIndex, rIndex + 1);
@@ -142,13 +143,11 @@ var drawXslice = function(row) {
 
 		xSlice.append("path")
 			.attr("transform", "translate(" + lPad + "," + (tPad + conHeight + gap) + ")")
-			.attr({
-				width: xslWidth,
-				height: xslHeight,
-				"class": "line",
-				"class": "xslice",
-				"d": slice(xy)
-			}) // use the return value of slice(xy) as 'd'
+			.attr("width", xslWidth)
+			.attr("height", xslHeight)
+			.attr("class", "line")
+			.attr("class", "xslice")
+			.attr("d", slice(xy))
 
 	} // end of drawXslice
 
@@ -282,12 +281,10 @@ var drawYslice = function(col) {
 
 		ySlice.append("path")
 			.attr("transform", "translate(" + (lPad + conWidth + gap) + "," + (0) + ")")
-			.attr({
-				width: yslWidth,
-				height: yslHeight,
-				"class": "line",
-				"class": "yslice",
-				"d": slice(xy)
-			})
+			.attr("width", yslWidth)
+			.attr("height", yslHeight)
+			.attr("class", "line")
+			.attr("class", "yslice")
+			.attr("d", slice(xy))
 
 	} // end of drawYslice

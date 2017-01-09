@@ -64,4 +64,4 @@ var xM = 0.5,
 // Initialize an array with 4 elements which will hold the
 // brush extent in fractional units
 
-var brushExtent = [0, 1, 0, 1]
+var brushExtent = [0, 1, 0, 1];

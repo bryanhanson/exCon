@@ -188,11 +188,11 @@ exCon <- function(M = NULL,
 
 	# Now write
 
-	# text = c(scopeFunHeader, data1, data2, data3, data4,
-		# js1, js2, js3, js4, js5, js6, scopeFunTail)
+	text = c(scopeFunHeader, data1, data2, data3, data4,
+		js1, js2, js3, js4, js5, js6, scopeFunTail)
 
-	text = c(data1, data2, data3, data4,
-		js1, js2, js3, js4, js5, js6)
+	# text = c(data1, data2, data3, data4,
+		# js1, js2, js3, js4, js5, js6)
 
 	if (minify) {
 		if (requireNamespace("js", quietly = TRUE)) {

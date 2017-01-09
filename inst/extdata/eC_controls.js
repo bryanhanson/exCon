@@ -31,7 +31,7 @@ var drawOutlines = function() {
 
 		svg.append('rect') // outline x slice
 			.attr("x", lPad)
-			.attr("y", tPad)
+			.attr("y", tPad + conHeight + gap)
 			.attr("width", xslWidth)
 			.attr("height", xslHeight)
 			.attr("id", "xViewport")
@@ -61,8 +61,8 @@ var drawControls = function() {
 		// button positions
 		// Add x or y after button name to specify it's coordinates, e.g. xRx
 
-		var yBut = tPad + conHeight + 0.5 * gap,
-			xBut = lPad + conWidth + 0.5 * gap;
+		var yBut = tPad + conHeight + 0.5 * gap
+		var xBut = lPad + conWidth + 0.5 * gap
 		var butInc = 0.25 * yslWidth // spacing w/i the button set
 		var butSize = 0.25 * gap // radius of the button circle
 
@@ -96,12 +96,12 @@ var drawControls = function() {
 
 		g1.append('text') // master reset button
 			.attr("x", Rx)
-			.attr("y", Rx + 7)
+			.attr("y", Ry + 7)
 			.attr("font-family", "sans-serif")
 			.attr("fill", "white")
 			.attr("font-size", 20)
 			.attr("text-anchor", "middle")
-			.attr({"pointer-events", "none")
+			.attr("pointer-events", "none")
 			.attr(onclick, resetAll())
 			.text('R')
 
@@ -111,7 +111,7 @@ var drawControls = function() {
 			.attr("r", butSize)
 			.attr("class", "resetButton")
 			.attr("fill", "#008B00")
-			.attr({"onclick", resetXslice())
+			.attr("onclick", resetXslice())
 
 		g1.append('text') // x slice reset button
 			.attr("x", xRx)
@@ -223,12 +223,14 @@ var drawControls = function() {
 	} // end of drawControls
 
 var resetAll = function() {
-	clearBrush();
+	resetBrush();
 	clearContour();
 	drawContour(Dx, Dy);
+	mX = 0.0; // added in v4 update
+	mY = 0.0; // added in v4 update
 	resetXslice();
 	resetYslice();
-	brushExtent = [0, 1, 0, 1]
+	brushExtent = [0, 1, 0, 1];
 }
 
 var resetXslice = function() {
