@@ -226,10 +226,10 @@ var resetAll = function() {
 	resetBrush();
 	clearContour();
 	drawContour(Dx, Dy);
-	mX = 0.0; // added in v4 update
-	mY = 0.0; // added in v4 update
 	resetXslice();
 	resetYslice();
+	mX = 0.0; // added in v4 update
+	mY = 0.0; // added in v4 update
 	brushExtent = [0, 1, 0, 1];
 }
 

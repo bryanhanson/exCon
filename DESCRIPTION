@@ -1,10 +1,11 @@
 Package: exCon
 Type: Package
 Title: Interactive Exploration of Contour Data
-Version: 0.1.82
-Date: 2017-01-08
-Authors@R: c(person("Bryan", "Hanson", role = c("aut", "cre"), email =
-    "hanson@depauw.edu"), person("Kristina", "Mulry", role = "ctb"))
+Version: 0.2.1
+Date: 2017-01-10
+Authors@R: c(person("Bryan A.", "Hanson", role = c("aut", "cre"), email =
+    "hanson@depauw.edu"), person("Kristina R.", "Mulry", role = "ctb"), person("Mike", "Bostock", role = c("cph", "ctb"),
+    comment = "author of the d3.js library, http://d3js.org"))
 Description: Interactive tools to explore topographic-like data
     sets.  Such data sets take the form of a matrix in which the rows and
     columns provide location/frequency information, and the matrix elements

@@ -76,10 +76,7 @@ var drawYaxis = function(yScale) {
 
 
 var clearContour = function() {
-	var tmp = d3.select("#CON");
-	console.log(tmp)
-	tmp.remove();
-	// d3.select("#CON").remove();
+	d3.select("#CON").remove();
 }
 
 var drawMap = function() { // draw the navigation map in the map space

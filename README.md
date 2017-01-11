@@ -1,13 +1,8 @@
+[![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
 ### exCon: Interactive Exploration of Contour Data
 
-`exCon` is an interactive tool to explore topographic-like data
-sets.  Such data sets take the form of a matrix in which the rows and
-columns provide location/frequency information, and the matrix elements
-contain altitude/response information.  Such data is found in cartography,
-2D spectroscopy and chemometrics.  `exCon` creates an interactive web page
-showing the contoured data set along with slices from the original matrix
-parallel to each dimension. The page is written in `d3/javascript`.
+`exCon` is an interactive tool to explore topographic-like data sets. Such data sets take the form of a matrix in which the rows and columns provide location/frequency information, and the matrix elements contain altitude/response information.  Such data is found in cartography, 2D spectroscopy and chemometrics.  The functions in this package create interactive web pages showing the contoured data, possibly with slices from the original matrix parallel to each dimension. The interactive behavior is created using the D3.js JavaScript library by Mike Bostock.
 
 #### Installation from Github using R:
 
@@ -26,14 +21,6 @@ chooseCRANmirror() # choose a CRAN mirror
 install.packages("exCon")
 library("exCon")
 ````
-
-#### To-Do
-
-* Extend guides into slice areas?
-* Make layout responsive to dimensions & aspect ratio of original data.
-* Color different contour levels & add scale.
-* Cosmetic: units like 1,800 can run into the slice area.
-* What can be done to improve performance with large data sets?  One possibility: hold updating of slices until mouse stops moving.
 
 #### Authors
 

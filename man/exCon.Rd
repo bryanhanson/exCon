@@ -8,6 +8,10 @@
 exCon(M = NULL, x = seq(0, 1, length.out = nrow(M)), y = seq(0, 1,
   length.out = ncol(M)), nlevels = 5, levels = pretty(range(M, na.rm =
   TRUE), nlevels), browser = NULL, minify = TRUE)
+
+exCon2(M = NULL, x = seq(0, 1, length.out = nrow(M)), y = seq(0, 1,
+  length.out = ncol(M)), nlevels = 5, levels = pretty(range(M, na.rm =
+  TRUE), nlevels), browser = NULL, minify = TRUE)
 }
 \arguments{
 \item{M}{A matrix.}
@@ -37,9 +41,10 @@ may be available at \url{https://github.com/jeroenooms/v8}}
 }
 \value{
 The path to the temporary directory containing the web page files.
+is returned invisibly.
 The side effect is an interactive web page.  The temporary directory
 is deleted when you quit R, but you can use the return value to
-save the files in a different location.
+save the files to a different location.
 }
 \description{
 These functions compute contour lines from matrix data and display them
@@ -47,6 +52,12 @@ in an interactive web page using the d3 javascript library. \code{exCon}
 displays slices along the x and y directions.  \code{exCon2} does not
 display the slices and is faster.
 }
+\section{Functions}{
+\itemize{
+\item \code{exCon}: Interactive contour display with slices
+
+\item \code{exCon2}: Interactive contour display without slices
+}}
 \section{Details}{
  The computation of the contour lines is handled by
 \code{\link[grDevices]{contourLines}}.  The result here, however, is transposed so that the
@@ -73,8 +84,15 @@ in turn uses \code{options("browser")}.  Exactly how this is handled
 is OS dependent.
 }
 
+\section{Firefox Browser}{
+
+the slices chosen and the values displayed are correct.
+}
+
 \section{RStudio Viewer}{
- If browser is \code{NULL}, you are using RStudio, and a viewer is specified, this will be called.  You can stop this by with \code{options(viewer = NULL)}.
+ If browser is \code{NULL}, you are using RStudio,
+and a viewer is specified, this will be called.  You can stop this by with
+\code{options(viewer = NULL)}.
 }
 
 \section{Browser Choice (Mac)}{
@@ -83,32 +101,21 @@ by \code{/bin/sh/open}
 which in turn looks at which browser you have set in the system settings.  You can
 override your default with
 \code{browser = "/usr/bin/open -a 'Google Chrome'"} for example.
-Testing shows that on a Mac, Safari and Chrome perform correctly,
-but in Firefox the mouse cursor is slightly offset from the guides.  However,
-the slices chosen and the values displayed are correct.
-}
-
-\section{Browser Choice (Other Systems)}{
-  \code{exCon} has been tested
-on a Windows 7
-professional instance running in VirtualBox using Firefox and Chrome, and
-runs correctly (Firefox has the same mouse position issue as mentioned above).
-It runs similarly on Window 8.
 }
 
 \section{Browser Choice & Performance}{
   You can check the performance of
 your browser at peacekeeper.futuremark.com  The most relevant score for
-exCon is the rendering category.  In limited testing, Chrome does the best.
+exCon is the rendering category.
 }
 
 \section{Performance Limits (YMMV)}{
- On a 4-year old MacBook Pro, with 8 Gb
-RAM and an Intel Core i7 chip, a
+ On a early 2015 MacBook Pro, with 16 Gb
+RAM and an 2.9 GHz Intel Core i5 chip, a
 1500 x 1500 matrix with 1 contour level 
-requires about 30 seconds for R to render the web page using Chrome, Safari
-or Firefox. A 2K x 2K matrix appears to be too large to handle.
-Approximately the same result is obtained using Windows 8 and Chrome.
+requires about 15 seconds for R to render the web page using Chrome, Safari
+or Firefox. A 2K x 2K matrix appears to be too large to handle.  R seems
+to hang during the handoff to the browser.
 }
 \examples{
 if (interactive()) {

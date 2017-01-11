@@ -8,9 +8,13 @@ Bryan A. Hanson & Kristina R. Mulry, DePauw University, Greencastle Indiana USA
 Contributions much appreciated from:
 timelyportfolio
 
-Changes in version: 0.2.???
+Changes in version: 0.2.1 2017-01-10
      + Updated for d3 version 4.
-     + Code clean up.
+     + JavaScript code clean up.
+     + Controls, allowing scaling of slices, were deactivated in exCon.  They were causing more trouble than they were worth.  Code is still there, however, the function is not called.
+     + README.md updated.
+     + Github pages updated.
+     + Documentation updated so that exCon2 is equally featured.
 
 Changes in version: 0.1.14 2016-01-26
      + Changed examples to check for if(interactive()).

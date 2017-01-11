@@ -63,20 +63,15 @@ var activateBrush = function() {
 
 var resetBrush = function() {
 	// reset global variables
-	// br = document.getElementById("BRUSH")
-	// br.call(brush.move, null)
 	brushExtent = [0, 1, 0, 1]
 	xD = Dx;
 	yD = Dy;
 	clearContour()
 	drawContour(xD, yD)
-	// activateBrush();
 }
 
 // Guide related functions.  Note that these need to
 // respond to brushing, which changes xD and yD
-
-// Now the create the guides
 
 var activateGuides = function() {
 

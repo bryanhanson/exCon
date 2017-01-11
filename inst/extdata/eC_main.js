@@ -6,7 +6,7 @@
 // Many modify or use the key global variables xD, yD, xF, yF
 
 drawOutlines(); // Appends rectangles outlining the areas we'll be using.
-drawControls();
+// drawControls();
 drawMap(); // Appends an svg:path object (the contour lines)
 // and draws them in the map region.
 
