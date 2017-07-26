@@ -1,7 +1,7 @@
 Package: exCon
 Type: Package
 Title: Interactive Exploration of Contour Data
-Version: 0.2.3
+Version: 0.2.5
 Date: 2017-07-26
 Authors@R: c(person("Bryan A.", "Hanson", role = c("aut", "cre"), email =
     "hanson@depauw.edu"), person("Kristina R.", "Mulry", role = "ctb"), person("Mike", "Bostock", role = c("cph", "ctb"),
@@ -13,7 +13,7 @@ Description: Interactive tools to explore topographic-like data
     2D spectroscopy and chemometrics.  The functions in this package create
     interactive web pages showing the contoured data, possibly with
     slices from the original matrix parallel to each dimension. The interactive
-    behavior is created using the D3.js 'JavaScript' library by Mike Bostock.
+    behavior is created using the 'D3.js' 'JavaScript' library by Mike Bostock.
 License: GPL-3
 Imports:
     jsonlite,
