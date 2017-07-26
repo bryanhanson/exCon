@@ -3,6 +3,7 @@
 \name{exCon}
 \alias{exCon}
 \alias{exCon2}
+\alias{exCon2}
 \title{Explore Contour Data Interactively}
 \usage{
 exCon(M = NULL, x = seq(0, 1, length.out = nrow(M)), y = seq(0, 1,
@@ -58,6 +59,7 @@ display the slices and is faster.
 
 \item \code{exCon2}: Interactive contour display without slices
 }}
+
 \section{Details}{
  The computation of the contour lines is handled by
 \code{\link[grDevices]{contourLines}}.  The result here, however, is transposed so that the
@@ -117,6 +119,7 @@ requires about 15 seconds for R to render the web page using Chrome, Safari
 or Firefox. A 2K x 2K matrix appears to be too large to handle.  R seems
 to hang during the handoff to the browser.
 }
+
 \examples{
 if (interactive()) {
 require(jsonlite)
@@ -139,4 +142,3 @@ exCon2(M = volcano, minify = FALSE) # no slices
 }
 \keyword{interactive}
 \keyword{plot}
-

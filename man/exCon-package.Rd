@@ -20,4 +20,3 @@ behavior is created using the D3.js 'JavaScript' library by Mike Bostock.
 Bryan A. Hanson & Kristina R. Multry
 }
 \keyword{package}
-
